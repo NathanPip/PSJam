@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://da6c3awtgtiom"]
+
+[ext_resource type="PackedScene" uid="uid://by2u247vmc4af" path="res://scenes/bee.tscn" id="1_5ir6t"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Bee" parent="." instance=ExtResource("1_5ir6t")]
+UpSpeed = 1000

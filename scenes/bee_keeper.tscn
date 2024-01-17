@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c10sblrpsenwp"]
+
+[ext_resource type="Script" path="res://scripts/BeeKeeper.cs" id="1_qal5l"]
+[ext_resource type="Texture2D" uid="uid://chyk177f5wk5l" path="res://assets/sprites/beekeeper_sprite.png" id="2_f2416"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfp6n"]
+size = Vector2(20, 27)
+
+[node name="BeeKeeper" type="CharacterBody2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_qal5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_yfp6n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f2416")

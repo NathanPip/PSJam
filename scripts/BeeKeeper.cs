@@ -7,10 +7,48 @@ public partial class BeeKeeper : CharacterBody2D
 	public float Speed = 300.0f;
 
 	private int MapLimits = 0;
+	
+	[Export]
+	public bool holdingBeeHive = false;
+
+	enum EFacingDirection
+	{
+		Up,
+		Down,
+		Left,
+		Right
+	};
+	
+	EFacingDirection facingDirection = EFacingDirection.Down;
+	Sprite2D beehiveSprite = null;
+	PackedScene beehiveScene = null;
+
+	public void SpawnBeehive() {
+		BeeHive beehive = (BeeHive)beehiveScene.Instantiate();
+		switch(facingDirection){
+			case EFacingDirection.Up:
+				beehive.Position = Position + new Vector2(0, -beehive.distanceFromPlayer);
+				break;
+			case EFacingDirection.Down:
+				beehive.Position = Position + new Vector2(0, beehive.distanceFromPlayer);
+				break;
+			case EFacingDirection.Left:
+				beehive.Position = Position + new Vector2(-beehive.distanceFromPlayer, 0);
+				break;
+			case EFacingDirection.Right:
+				beehive.Position = Position + new Vector2(beehive.distanceFromPlayer, 0);
+				break;
+		}
+		holdingBeeHive = false;
+		beehiveSprite.Visible = false;
+		GetParent().AddChild(beehive);
+	}
 
 	public override void _Ready() {
 		MapLimits = GetNode<Game>("/root/Game").MapSize / 2;
+		beehiveSprite = GetNode<Sprite2D>("BeehiveSprite");
 		GD.Print("MapLimits: " + MapLimits);
+        beehiveScene = ResourceLoader.Load<PackedScene>("res://scenes/bee_hive.tscn");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -36,5 +74,28 @@ public partial class BeeKeeper : CharacterBody2D
 		}
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("Interact") && holdingBeeHive)
+		{
+			SpawnBeehive();
+		}
+		if(@event.IsActionPressed("MoveUp")){
+			facingDirection = EFacingDirection.Up;
+		} else if(@event.IsActionPressed("MoveDown")){
+			facingDirection = EFacingDirection.Down;
+		} else if(@event.IsActionPressed("MoveLeft")){
+			facingDirection = EFacingDirection.Left;
+		} else if(@event.IsActionPressed("MoveRight")){
+			facingDirection = EFacingDirection.Right;
+		}
+	}
+
+	public void OnBeehiveInventory()
+	{
+		holdingBeeHive = !holdingBeeHive;
+		beehiveSprite.Visible = holdingBeeHive;
 	}
 }

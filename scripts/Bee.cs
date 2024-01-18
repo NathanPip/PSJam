@@ -34,6 +34,11 @@ public class BeeIdleState : State
 			GD.Print("Bee has no hive!!!");
 			return;
 		}
+		float searchRand = GD.Randf();
+		if (searchRand < .2){
+			bee.ChangeState(bee.states[1]);
+			return;
+		}
 		float moveRand = GD.Randf();
 		if (moveRand < moveChance){
 			float randomRotation = GD.Randf() * -Mathf.Pi * 2 + Mathf.Pi;
@@ -60,25 +65,49 @@ public class BeeIdleState : State
 	}
 }
 
+public class BeeCollectingState : State {
+
+	Bee bee;
+	Flower flower;
+	bool movingToFlower = false;
+	public BeeCollectingState(Bee owner) : base(owner) {
+		bee = (Bee)owner;
+	}
+
+	public override void Enter() {
+		Flower flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
+		bee.MoveTo(flower.Position);
+		movingToFlower = true;
+	}
+
+	public override void Update(double delta) {
+		if(movingToFlower && !bee.isMoving) {
+			bee.ChangeState(bee.states[0]);
+		}
+	}
+}
+
+public class BeePollinatingState : State {
+	
+	public BeePollinatingState(Bee owner) : base(owner) {}
+}
 
 public partial class Bee : Node2D 
 {
 
 	[Export]
-	public float RotationSpeed = 100;
+	public float RotationSpeed = 5;
 	[Export]
-	public float MovementSpeed = 100;
-	
+	public float MovementSpeed = 40;
 	[Export]
 	public BeeHive hive = null;
 
 	Vector2 moveToLocation;
 	float lookAtRotation;
-
 	public bool isMoving = false;
 	public bool isRotating = false;
 
-	List<State> states = new List<State>();
+	public List<State> states = new List<State>();
 	State currentState;
 
 	public void ChangeState(State newState){
@@ -101,7 +130,7 @@ public partial class Bee : Node2D
 
 	public void _Move(double delta) {
 			Position = Position.MoveToward(moveToLocation, (float)delta * MovementSpeed);
-			Rotation = Mathf.Lerp(Rotation, Position.AngleToPoint(moveToLocation), (float)delta * 3);
+			Rotation = Mathf.Lerp(Rotation, Position.AngleToPoint(moveToLocation), (float)delta * RotationSpeed);
 			if(Position.DistanceTo(moveToLocation) < 5){
 				isMoving = false;
 				return;
@@ -120,7 +149,11 @@ public partial class Bee : Node2D
 	public override void _Ready()
 	{
 		BeeIdleState idleState = new BeeIdleState(this);
+		BeeCollectingState collectingState = new BeeCollectingState(this);
+		BeePollinatingState pollinatingState = new BeePollinatingState(this);
 		states.Add(idleState);
+		states.Add(collectingState);
+		states.Add(pollinatingState);
 		ChangeState(idleState);
 	}
 

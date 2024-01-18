@@ -5,9 +5,10 @@
 
 [node name="BeeHive" type="Node2D"]
 script = ExtResource("1_crkyv")
+initialFlowerSproutSpawnChance = 0.9
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_0jhok")
 autoplay = "default"
-frame_progress = 0.427391
+frame_progress = 0.236301

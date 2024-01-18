@@ -5,6 +5,7 @@ public partial class BeeHive : Node2D
 {
 	public int bees = 0;
 	public int distanceFromPlayer = 90;
+	public int beeMoveRange = 100;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

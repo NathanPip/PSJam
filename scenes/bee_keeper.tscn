@@ -25,4 +25,4 @@ script = ExtResource("4_hy1sd")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("4_jbpox")
 autoplay = "default"
-frame_progress = 0.978874
+frame_progress = 0.046578

@@ -36,7 +36,7 @@ public class BeeIdleState : State
 		}
 		float moveRand = GD.Randf();
 		if (moveRand < moveChance){
-			float randomRotation = GD.Randf() * -Mathf.Pi + Mathf.Pi / 2;
+			float randomRotation = GD.Randf() * -Mathf.Pi * 2 + Mathf.Pi;
             float moveDistance = GD.Randf() * bee.hive.beeMoveRange;
             Vector2 moveLocation = bee.hive.Position + new Vector2(1, 0).Rotated(randomRotation) * moveDistance;
 			bee.MoveTo(moveLocation);

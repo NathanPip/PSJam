@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://by2u247vmc4af"]
 
 [ext_resource type="Script" path="res://scripts/Bee.cs" id="1_8fukp"]
-[ext_resource type="Texture2D" uid="uid://djsswvt3hcb75" path="res://assets/sprites/test_sprite.png" id="2_njqkw"]
+[ext_resource type="Texture2D" uid="uid://38h7rbqlbegl" path="res://assets/sprites/Bee.png" id="2_wmrbt"]
 
 [node name="Bee" type="Node2D"]
 script = ExtResource("1_8fukp")
@@ -9,4 +9,5 @@ RotationSpeed = 5.0
 MovementSpeed = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_njqkw")
+rotation = 1.5708
+texture = ExtResource("2_wmrbt")

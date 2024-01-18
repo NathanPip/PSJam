@@ -1,12 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ct7p07c2555q7"]
+[gd_scene load_steps=3 format=3 uid="uid://ct7p07c2555q7"]
 
 [ext_resource type="Script" path="res://scripts/BeeHive.cs" id="1_crkyv"]
+[ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="2_0jhok"]
 
 [node name="BeeHive" type="Node2D"]
 script = ExtResource("1_crkyv")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("2_0jhok")
+autoplay = "default"
+frame_progress = 0.427391

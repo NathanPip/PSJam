@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=13 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
 [ext_resource type="Texture2D" uid="uid://catv8v05c81r4" path="res://assets/sprites/test_grass_sheet.png" id="2_1d36p"]
 [ext_resource type="Script" path="res://scripts/Camera.cs" id="2_6oj3j"]
+[ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
 [ext_resource type="PackedScene" uid="uid://ct7p07c2555q7" path="res://scenes/bee_hive.tscn" id="7_dl4yr"]
-[ext_resource type="PackedScene" uid="uid://by2u247vmc4af" path="res://scenes/bee.tscn" id="8_qrb6g"]
+[ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
+[ext_resource type="PackedScene" uid="uid://b1lr8vg17yvru" path="res://scenes/flower.tscn" id="8_oyukf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -16,6 +18,7 @@ texture_region_size = Vector2i(32, 32)
 1:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_aa4ds"]
+tile_size = Vector2i(34, 34)
 sources/1 = SubResource("TileSetAtlasSource_bk5ga")
 
 [node name="Game" type="Node2D"]
@@ -32,6 +35,7 @@ layer_0/name = "Grass"
 layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0, -655368, 1, 0, -327694, 1, 0, 983011, 1, 0, 1114084, 1, 0, 983029, 1, 0, 720890, 1, 0, 720891, 1, 0, 655355, 1, 0, 458747, 1, 0, 393210, 1, 0, 393209, 1, 0, 393186, 1, 0, 589806, 1, 0, -393200, 1, 0, 18, 1, 0, 65554, 1, 0, 1179670, 1, 0, 1114119, 1, 0, 655362, 1, 0, 262151, 1, 0, 196615, 1, 0, -65527, 1, 0, -131063, 1, 0, -196599, 1, 0, -720895, 1, 0, 65516, 1, 0, -7, 1, 0)
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
+script = ExtResource("4_yewd1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.7, 1.7)
@@ -81,27 +85,14 @@ button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
 flat = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/ButtonController/Button3"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 56.0
-offset_bottom = 56.0
-color = Color(1, 1, 0, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/ButtonController/Button3"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("8_fcjk4")
 
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
-position = Vector2(138, 0)
+position = Vector2(131, 1)
 
-[node name="Bee" parent="." node_paths=PackedStringArray("hive") instance=ExtResource("8_qrb6g")]
-position = Vector2(68, -142)
-hive = NodePath("../BeeHive")
-
-[node name="Bee2" parent="." node_paths=PackedStringArray("hive") instance=ExtResource("8_qrb6g")]
-position = Vector2(305, 7)
-hive = NodePath("../BeeHive")
-
-[node name="Bee3" parent="." node_paths=PackedStringArray("hive") instance=ExtResource("8_qrb6g")]
-position = Vector2(281, -175)
-hive = NodePath("../BeeHive")
+[node name="Flower" parent="." instance=ExtResource("8_oyukf")]
 
 [connection signal="InventoryChanged" from="." to="BeeKeeper" method="OnBeehiveInventory"]

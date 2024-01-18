@@ -22,6 +22,7 @@ public partial class BeeKeeper : CharacterBody2D
 	EFacingDirection facingDirection = EFacingDirection.Down;
 	Sprite2D beehiveSprite = null;
 	PackedScene beehiveScene = null;
+	AnimatedSprite2D playerSprite = null;
 
 	public void SpawnBeehive() {
 		BeeHive beehive = (BeeHive)beehiveScene.Instantiate();
@@ -47,6 +48,7 @@ public partial class BeeKeeper : CharacterBody2D
 	public override void _Ready() {
 		MapLimits = GetNode<Game>("/root/Game").MapSize / 2;
 		beehiveSprite = GetNode<Sprite2D>("BeehiveSprite");
+		playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		GD.Print("MapLimits: " + MapLimits);
         beehiveScene = ResourceLoader.Load<PackedScene>("res://scenes/bee_hive.tscn");
 	}
@@ -57,6 +59,11 @@ public partial class BeeKeeper : CharacterBody2D
 		Vector2 direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
 		if (direction != Vector2.Zero)
 		{
+			if (direction.X < 0){
+				playerSprite.FlipH = true;
+			} else if (direction.X > 0){
+				playerSprite.FlipH = false;
+			}
 			velocity = direction * Speed;
 		}
 		else

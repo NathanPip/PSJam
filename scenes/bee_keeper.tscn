@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/BeeKeeper.cs" id="1_qal5l"]
 [ext_resource type="Texture2D" uid="uid://djsswvt3hcb75" path="res://assets/sprites/test_sprite.png" id="2_cwffl"]
-[ext_resource type="Texture2D" uid="uid://chyk177f5wk5l" path="res://assets/sprites/beekeeper_sprite.png" id="2_f2416"]
 [ext_resource type="Script" path="res://scripts/BeehivePlayerSprite.cs" id="4_hy1sd"]
+[ext_resource type="SpriteFrames" uid="uid://c1iyodal3xckk" path="res://beekeeper_frames.tres" id="4_jbpox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfp6n"]
 size = Vector2(20, 27)
@@ -16,11 +16,13 @@ script = ExtResource("1_qal5l")
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_yfp6n")
 
-[node name="CharacterSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_f2416")
-
 [node name="BeehiveSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(19, 0)
 texture = ExtResource("2_cwffl")
 script = ExtResource("4_hy1sd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_jbpox")
+autoplay = "default"
+frame_progress = 0.978874

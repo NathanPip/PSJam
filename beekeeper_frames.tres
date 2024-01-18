@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://c1iyodal3xckk"]
+
+[ext_resource type="Texture2D" uid="uid://b22ugmka03yqs" path="res://assets/sprites/realBeeKeeper.png" id="1_x8mto"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pilyg"]
+atlas = ExtResource("1_x8mto")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54ps3"]
+atlas = ExtResource("1_x8mto")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0im2"]
+atlas = ExtResource("1_x8mto")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6rue"]
+atlas = ExtResource("1_x8mto")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57je1"]
+atlas = ExtResource("1_x8mto")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pilyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54ps3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0im2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6rue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57je1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

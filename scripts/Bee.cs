@@ -70,26 +70,114 @@ public class BeeCollectingState : State {
 	Bee bee;
 	Flower flower;
 	bool movingToFlower = false;
+	bool collectingNectar = false;
+	float timeToCollect = 0;
+	float timer = 0;
 	public BeeCollectingState(Bee owner) : base(owner) {
 		bee = (Bee)owner;
 	}
 
+	public void Collect() {
+		timeToCollect = GD.Randf() * 3 + 1;
+	}
+
 	public override void Enter() {
-		Flower flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
+		int flowerCount = bee.hive.flowers.Count;
+		if(flowerCount == 0){
+			bee.ChangeState(bee.states[0]);
+			return;
+		}
+		flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
 		bee.MoveTo(flower.Position);
 		movingToFlower = true;
 	}
 
+	public override void Exit() {
+		timer = 0;
+		timeToCollect = 0;
+		collectingNectar = false;
+		movingToFlower = false;
+		flower = null;
+	}
+
 	public override void Update(double delta) {
 		if(movingToFlower && !bee.isMoving) {
-			bee.ChangeState(bee.states[0]);
+			movingToFlower = false;
+			Collect();
+			collectingNectar = true;
+			return;
+		}
+		if(collectingNectar) {
+			float previousTime = timer;
+			timer += (float)delta;
+			if(timer >= timeToCollect) {
+				collectingNectar = false;
+				flower.Pollinate(timeToCollect - previousTime);
+				bee.CollectNectar(timeToCollect - previousTime);
+				bee.ChangeState(bee.states[2]);
+				return;
+			}
+			flower.Pollinate(delta);
+			bee.CollectNectar((float)delta);
 		}
 	}
 }
 
 public class BeePollinatingState : State {
 	
-	public BeePollinatingState(Bee owner) : base(owner) {}
+	Bee bee;
+	public bool movingToHive = false;
+	public bool makingHoney = false;
+	float previousPollination = 2f;
+	float pollinationTimer = 0;
+	public BeePollinatingState(Bee owner) : base(owner) {
+		bee = (Bee)owner;
+	}
+
+	public override void Enter() {
+	 	bee.MoveTo(bee.hive.Position);
+		movingToHive = true;
+	}
+	
+	public override void Exit() {
+	 	movingToHive = false;
+		makingHoney = false;
+		bee.Visible = true;
+	}
+
+	public override void Update(double delta) {
+		if(movingToHive && bee.isMoving) {
+			pollinationTimer += (float)delta;
+			if(pollinationTimer >= previousPollination) {
+				float rand = GD.Randf();
+				if(rand < .1) {
+					Vector2 flowerPosition = bee.Position + new Vector2(0, 1).Rotated(bee.Rotation + Mathf.Pi / 2) * 50 + 
+						new Vector2(GD.Randf() * 100 - 50, GD.Randf() * 100 - 50);
+					bee.hive.AddFlower(flowerPosition);
+				}
+				previousPollination += 2f;
+			}
+			return;
+		}
+		if(movingToHive && !bee.isMoving) {
+			movingToHive = false;
+			makingHoney = true;
+			bee.Visible = false;
+			return;
+		}
+		if(makingHoney) {
+			float dispenseAmt = (float)delta;
+			float previousNectar = bee.nectarAmt;
+			bee.nectarAmt -= dispenseAmt;
+			if(bee.nectarAmt <= 0) {
+				bee.hive.StoreHoney(previousNectar);
+				bee.nectarAmt = 0;
+				bee.ChangeState(bee.states[0]);
+				return;
+			}
+			bee.hive.StoreHoney(dispenseAmt);
+		}
+	}
 }
 
 public partial class Bee : Node2D 
@@ -101,6 +189,10 @@ public partial class Bee : Node2D
 	public float MovementSpeed = 40;
 	[Export]
 	public BeeHive hive = null;
+	[Export]
+	public float nectarAmt = 0;
+	[Export]
+	public float collectionRate = 5;
 
 	Vector2 moveToLocation;
 	float lookAtRotation;
@@ -109,6 +201,10 @@ public partial class Bee : Node2D
 
 	public List<State> states = new List<State>();
 	State currentState;
+
+	public void CollectNectar(float delta) {
+		nectarAmt += delta * collectionRate;
+	}
 
 	public void ChangeState(State newState){
 		if(currentState != null){

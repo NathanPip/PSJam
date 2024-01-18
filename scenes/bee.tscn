@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://38h7rbqlbegl" path="res://assets/sprites/Bee.png" id="2_wmrbt"]
 
 [node name="Bee" type="Node2D"]
+z_index = 2
 script = ExtResource("1_8fukp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

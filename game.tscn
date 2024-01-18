@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
-[ext_resource type="Texture2D" uid="uid://catv8v05c81r4" path="res://assets/sprites/test_grass_sheet.png" id="2_1d36p"]
+[ext_resource type="Texture2D" uid="uid://2d2llejrrevu" path="res://assets/sprites/test_grass_sheet.png" id="2_1d36p"]
 [ext_resource type="Script" path="res://scripts/Camera.cs" id="2_6oj3j"]
 [ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
@@ -13,12 +13,18 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
-texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+2:1/0 = 0
+1:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_aa4ds"]
-tile_size = Vector2i(34, 34)
 sources/1 = SubResource("TileSetAtlasSource_bk5ga")
 
 [node name="Game" type="Node2D"]
@@ -38,7 +44,7 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.7, 1.7)
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_6oj3j")
@@ -91,7 +97,7 @@ scale = Vector2(3, 3)
 sprite_frames = ExtResource("8_fcjk4")
 
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
-position = Vector2(131, 1)
+position = Vector2(253, 1)
 
 [node name="Flower" parent="." instance=ExtResource("8_oyukf")]
 

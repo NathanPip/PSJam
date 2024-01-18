@@ -4,10 +4,13 @@
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="2_0jhok"]
 
 [node name="BeeHive" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_crkyv")
-initialFlowerSproutSpawnChance = 0.9
+flowerSpreadDistance = 800
+initialFlowerSproutSpawnChance = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_0jhok")
 autoplay = "default"

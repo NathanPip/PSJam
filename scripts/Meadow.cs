@@ -14,7 +14,7 @@ public partial class Meadow : TileMap
 				if(chance < .92f) {
 					continue;
 				}
-				SetCell(1, new Vector2I(i, j) , 1, new Vector2I(GD.RandRange(0,1), 0));
+				SetCell(1, new Vector2I(i, j) , 1, new Vector2I(GD.RandRange(0,3), 0));
 			}
 		}
 	}

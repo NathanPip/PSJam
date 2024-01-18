@@ -4,8 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dajgkreelsrh8" path="res://assets/sprites/PurpleFlower.png" id="2_r1y8e"]
 
 [node name="Flower" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_x2jog")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+scale = Vector2(2, 2)
 texture = ExtResource("2_r1y8e")

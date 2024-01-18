@@ -16,7 +16,7 @@ public partial class BeeHive : Node2D
 	[Export]
 	public int beeMoveRange = 100;
 	[Export]
-	public int honey = 0;
+	public float honey = 0;
 	[Export]
 	public int flowerSpawnAmount = 40;
 	[Export]
@@ -41,13 +41,36 @@ public partial class BeeHive : Node2D
 		}
 	}
 
+	public void StoreHoney(float honeyAmount) {
+		honey += honeyAmount;
+	}
+
+	public void AddFlower(Vector2 position) {
+		Flower flower = (Flower)flowerScene.Instantiate();
+		flowers.Add((Flower)flower);
+		flower.Position = position;
+		GetParent().AddChild(flower);
+	}
+
 	public void SpawnFlowerPoint() {
-		for(int i=0; i < flowerSpawnAmount; i++) {
-			FlowerPoint flowerPoint = new FlowerPoint();
-			flowerPoint.position = new Vector2(GD.RandRange(-flowerSpreadDistance, flowerSpreadDistance), GD.RandRange(-flowerSpreadDistance, flowerSpreadDistance));
-			flowerPoint.spawned = false;
-			flowerPoints.Add(flowerPoint);
+		float sectorSize = flowerSpreadDistance / 4;
+		float halfSectorSize = sectorSize / 2;
+		for(int i=-2; i<2; i++) {
+			for(int j=-2; j<2; j++) {
+				FlowerPoint flowerPoint = new FlowerPoint();
+				Vector2 position = Position + new Vector2(i * sectorSize + halfSectorSize + GD.Randf() * sectorSize - halfSectorSize, 
+						j * sectorSize + halfSectorSize + GD.Randf() * sectorSize - halfSectorSize);
+				flowerPoint.position = position;
+				flowerPoint.spawned = false;
+				flowerPoints.Add(flowerPoint);
+			}
 		}
+	// 	for(int i=0; i < flowerSpawnAmount; i++) {
+	// 		FlowerPoint flowerPoint = new FlowerPoint();
+	// 		flowerPoint.position = new Vector2(GD.RandRange(-flowerSpreadDistance, flowerSpreadDistance), GD.RandRange(-flowerSpreadDistance, flowerSpreadDistance));
+	// 		flowerPoint.spawned = false;
+	// 		flowerPoints.Add(flowerPoint);
+	// 	}
 	}
 
 	public void SpawnInitialSprouts() {
@@ -61,7 +84,7 @@ public partial class BeeHive : Node2D
 			}
 			Flower flower = (Flower)flowerScene.Instantiate();
 			flowers.Add((Flower)flower);
-			flower.Position = Position + point.position;
+			flower.Position = point.position;
 			GetParent().AddChild(flower);
 		}
 	}

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ct7p07c2555q7" path="res://scenes/bee_hive.tscn" id="7_dl4yr"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
 [ext_resource type="Script" path="res://scripts/InventoryButton.cs" id="9_ld68y"]
-[ext_resource type="SpriteFrames" uid="uid://b1qe85adviqx" path="res://jar_frames.tres" id="11_x1emn"]
+[ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -46,7 +46,6 @@ layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0,
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
-grassSpawnChance = 0.02
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -153,6 +152,3 @@ frame = 3
 
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
 position = Vector2(253, 1)
-
-[connection signal="InventoryChangedWithArgument" from="." to="BeeKeeper" method="OnInventoryChanged"]
-[connection signal="InventoryChangedWithArgument" from="." to="CanvasLayer/Control/CenterContainer/HBoxContainer" method="OnInventoryChanged"]

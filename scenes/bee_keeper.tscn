@@ -6,7 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://c1iyodal3xckk" path="res://beekeeper_frames.tres" id="4_jbpox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfp6n"]
-size = Vector2(20, 17.3333)
+size = Vector2(10.6667, 2.33333)
 
 [node name="BeeKeeper" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -14,7 +14,7 @@ scale = Vector2(3, 3)
 script = ExtResource("1_qal5l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7.66667)
+position = Vector2(2.33333, -0.166667)
 shape = SubResource("RectangleShape2D_yfp6n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://b1qe85adviqx"]
+
+[ext_resource type="Texture2D" uid="uid://b274ywyyhhmxp" path="res://assets/sprites/honeyjar.png" id="1_fj3gj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihxuq"]
+atlas = ExtResource("1_fj3gj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8okc"]
+atlas = ExtResource("1_fj3gj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xnrq"]
+atlas = ExtResource("1_fj3gj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1jgd"]
+atlas = ExtResource("1_fj3gj")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scpe5"]
+atlas = ExtResource("1_fj3gj")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihxuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8okc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xnrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1jgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_scpe5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

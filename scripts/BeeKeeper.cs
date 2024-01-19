@@ -100,7 +100,7 @@ public partial class BeeKeeper : CharacterBody2D
 		}
 	}
 
-	public void OnBeehiveInventory()
+	public void OnInventoryChanged(string item)
 	{
 		holdingBeeHive = !holdingBeeHive;
 		beehiveSprite.Visible = holdingBeeHive;

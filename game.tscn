@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=15 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -7,9 +7,11 @@
 [ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
+[ext_resource type="Script" path="res://scripts/InventoryUI.cs" id="6_m8mfb"]
 [ext_resource type="PackedScene" uid="uid://ct7p07c2555q7" path="res://scenes/bee_hive.tscn" id="7_dl4yr"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
-[ext_resource type="PackedScene" uid="uid://b1lr8vg17yvru" path="res://scenes/flower.tscn" id="8_oyukf"]
+[ext_resource type="Script" path="res://scripts/InventoryButton.cs" id="9_ld68y"]
+[ext_resource type="SpriteFrames" uid="uid://b1qe85adviqx" path="res://jar_frames.tres" id="11_x1emn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -44,6 +46,7 @@ layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0,
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
+grassSpawnChance = 0.02
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -62,43 +65,94 @@ offset_top = 11.272
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="ButtonController" type="Control" parent="CanvasLayer/Control"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -183.0
-offset_top = -122.0
-offset_right = 184.0
+offset_left = -74.0
+offset_top = -119.808
+offset_right = 74.0
+offset_bottom = 0.192017
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Button3" type="Button" parent="CanvasLayer/Control/ButtonController"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -36.0
-offset_right = 36.0
-offset_bottom = 36.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+layout_mode = 2
+script = ExtResource("6_m8mfb")
+
+[node name="Item1" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
 flat = true
+script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/ButtonController/Button3"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item1"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("8_fcjk4")
 
+[node name="Item2" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item2"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+
+[node name="Item3" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item3"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+frame = 3
+
+[node name="Item4" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item4"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+frame = 3
+
+[node name="Item5" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item5"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+frame = 3
+
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
 position = Vector2(253, 1)
 
-[node name="Flower" parent="." instance=ExtResource("8_oyukf")]
+[connection signal="InventoryChangedWithArgument" from="." to="BeeKeeper" method="OnInventoryChanged"]
+[connection signal="InventoryChangedWithArgument" from="." to="CanvasLayer/Control/CenterContainer/HBoxContainer" method="OnInventoryChanged"]

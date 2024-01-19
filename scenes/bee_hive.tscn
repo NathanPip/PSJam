@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct7p07c2555q7"]
+[gd_scene load_steps=5 format=3 uid="uid://ct7p07c2555q7"]
 
 [ext_resource type="Script" path="res://scripts/BeeHive.cs" id="1_crkyv"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="2_0jhok"]
+[ext_resource type="Script" path="res://scripts/HoneyDebugGUI.cs" id="3_pjpv4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_debyv"]
+size = Vector2(42, 6)
 
 [node name="BeeHive" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_crkyv")
 flowerSpreadDistance = 800
-initialFlowerSproutSpawnChance = 1.0
+flowerSpawnAmount = 100
+sectorGridSize = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
@@ -15,3 +20,18 @@ sprite_frames = ExtResource("2_0jhok")
 autoplay = "default"
 frame_progress = 0.236301
 offset = Vector2(0, -8)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_debyv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -39.0
+offset_top = -77.0
+offset_right = 67.0
+offset_bottom = -51.0
+script = ExtResource("3_pjpv4")
+
+[connection signal="AddHoneyWithArgument" from="." to="RichTextLabel" method="OnHoneyAdded"]

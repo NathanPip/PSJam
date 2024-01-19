@@ -34,9 +34,15 @@ public class BeeIdleState : State
 			GD.Print("Bee has no hive!!!");
 			return;
 		}
-		float searchRand = GD.Randf();
-		if (searchRand < .2){
-			bee.ChangeState(bee.states[1]);
+		if(bee.nectarAmt <= bee.nectarCapacity / 2 && !bee.hive.isFull) {
+            float searchRand = GD.Randf();
+            if (searchRand < .2)
+            {
+                bee.ChangeState(bee.states[1]);
+                return;
+            }
+		} else if (bee.nectarAmt >= bee.nectarCapacity / 2 && !bee.hive.isFull) {
+		 	bee.ChangeState(bee.states[2]);
 			return;
 		}
 		float moveRand = GD.Randf();
@@ -88,6 +94,10 @@ public class BeeCollectingState : State {
 			return;
 		}
 		flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
+		if(flower.isBloomed || !flower.hasSprouted) {
+			bee.ChangeState(bee.states[0]);
+			return;
+		}
 		bee.MoveTo(flower.Position);
 		movingToFlower = true;
 	}
@@ -137,12 +147,13 @@ public class BeePollinatingState : State {
 	public override void Enter() {
 	 	bee.MoveTo(bee.hive.Position);
 		movingToHive = true;
+		bee.PollenParticles.Emitting = true;
 	}
 	
 	public override void Exit() {
 	 	movingToHive = false;
 		makingHoney = false;
-		bee.Visible = true;
+		bee.BeeSprite.Visible = true;
 	}
 
 	public override void Update(double delta) {
@@ -151,9 +162,19 @@ public class BeePollinatingState : State {
 			if(pollinationTimer >= previousPollination) {
 				float rand = GD.Randf();
 				if(rand < .1) {
-					Vector2 flowerPosition = bee.Position + new Vector2(0, 1).Rotated(bee.Rotation + Mathf.Pi / 2) * 50 + 
-						new Vector2(GD.Randf() * 100 - 50, GD.Randf() * 100 - 50);
-					bee.hive.AddFlower(flowerPosition);
+					// Vector2 flowerPosition = bee.Position + new Vector2(0, 1).Rotated(bee.Rotation + Mathf.Pi / 2) * 50 + 
+					// 	new Vector2(GD.Randf() * 100 - 50, GD.Randf() * 100 - 50);
+					// bee.hive.AddFlower(flowerPosition);
+					float sectorSize = bee.hive.flowerSpreadDistance / bee.hive.sectorGridSize;
+					int XGridPosition = (int)Math.Min((int)Mathf.Floor(
+								((bee.Position.X - bee.hive.Position.X) + bee.hive.flowerSpreadDistance/2) / sectorSize), bee.hive.sectorGridSize - 1);
+					int YGridPosition = (int)Math.Min((int)Mathf.Floor(
+								((bee.Position.Y - bee.hive.Position.Y) + bee.hive.flowerSpreadDistance/2) / sectorSize), bee.hive.sectorGridSize - 1);
+					int index = YGridPosition * (int)bee.hive.sectorGridSize + XGridPosition;
+					FlowerPoint flowerPoint = bee.hive.flowerPoints[index];
+					if(!flowerPoint.spawned) {
+						bee.hive.SpawnFlower(index);
+					}
 				}
 				previousPollination += 2f;
 			}
@@ -162,10 +183,15 @@ public class BeePollinatingState : State {
 		if(movingToHive && !bee.isMoving) {
 			movingToHive = false;
 			makingHoney = true;
-			bee.Visible = false;
+			bee.PollenParticles.Emitting = false;
+			bee.BeeSprite.Visible = false;
 			return;
 		}
 		if(makingHoney) {
+			if(bee.hive.isFull) {
+			 	bee.ChangeState(bee.states[0]);
+				return;
+			}
 			float dispenseAmt = (float)delta;
 			float previousNectar = bee.nectarAmt;
 			bee.nectarAmt -= dispenseAmt;
@@ -192,9 +218,13 @@ public partial class Bee : Node2D
 	[Export]
 	public float nectarAmt = 0;
 	[Export]
+	public float nectarCapacity = 10;
+	[Export]
 	public float collectionRate = 5;
 
 	Vector2 moveToLocation;
+	public GpuParticles2D PollenParticles;
+	public Sprite2D BeeSprite;
 	float lookAtRotation;
 	public bool isMoving = false;
 	public bool isRotating = false;
@@ -244,6 +274,8 @@ public partial class Bee : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		PollenParticles = GetNode<GpuParticles2D>("PollenParticles");
+		BeeSprite = GetNode<Sprite2D>("BeeSprite");
 		BeeIdleState idleState = new BeeIdleState(this);
 		BeeCollectingState collectingState = new BeeCollectingState(this);
 		BeePollinatingState pollinatingState = new BeePollinatingState(this);

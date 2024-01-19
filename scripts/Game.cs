@@ -10,19 +10,23 @@ public struct Inventory
 
 public partial class Game : Node2D
 {
-
 	[Export]
 	public int MapSize = 2000;
-
 	[Signal]
-	public delegate void InventoryChangedEventHandler();
+	public delegate void InventoryChangedWithArgumentEventHandler(string item);
 
 	Inventory inventory = new Inventory();
 
 	public override void _Input(InputEvent @event)
 	{
 		if(@event.IsActionPressed("SelectItem1")){
-			EmitSignal(SignalName.InventoryChanged);
+			EmitSignal(SignalName.InventoryChangedWithArgument, "item1");
+		}
+		if(@event.IsActionPressed("SelectItem2")){
+			EmitSignal(SignalName.InventoryChangedWithArgument, "item2");
+		}
+		if(@event.IsActionPressed("SelectItem3")){
+			EmitSignal(SignalName.InventoryChangedWithArgument, "item3");
 		}
 	}
 	// Called when the node enters the scene tree for the first time.

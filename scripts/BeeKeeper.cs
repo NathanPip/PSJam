@@ -50,7 +50,7 @@ public partial class BeeKeeper : CharacterBody2D
 		beehiveSprite = GetNode<AnimatedSprite2D>("BeehiveSprite");
 		playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		GD.Print("MapLimits: " + MapLimits);
-        beehiveScene = ResourceLoader.Load<PackedScene>("res://scenes/bee_hive.tscn");
+		beehiveScene = ResourceLoader.Load<PackedScene>("res://scenes/bee_hive.tscn");
 	}
 
 	public override void _PhysicsProcess(double delta)

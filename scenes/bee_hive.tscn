@@ -10,8 +10,8 @@ flowerSpreadDistance = 800
 initialFlowerSproutSpawnChance = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_0jhok")
 autoplay = "default"
 frame_progress = 0.236301
+offset = Vector2(0, -8)

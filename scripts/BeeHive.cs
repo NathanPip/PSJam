@@ -21,6 +21,8 @@ public partial class BeeHive : Node2D
 	public int flowerSpawnAmount = 40;
 	[Export]
 	public float initialFlowerSproutSpawnChance = .1f;
+	[Export]
+	public float sectorGridSize = 4;
 	public int bees = 0;
 	public int distanceFromPlayer = 90;
 	public bool spawnedBees = false;
@@ -53,13 +55,15 @@ public partial class BeeHive : Node2D
 	}
 
 	public void SpawnFlowerPoint() {
-		float sectorSize = flowerSpreadDistance / 4;
+		float sectorSize = flowerSpreadDistance / sectorGridSize;
 		float halfSectorSize = sectorSize / 2;
-		for(int i=-2; i<2; i++) {
-			for(int j=-2; j<2; j++) {
+		float halfGridSize = (float)sectorGridSize / 2;
+		for(int i=-(int)halfGridSize; i<(int)Math.Ceiling(halfGridSize); i++) {
+			for(int j=(int)-halfGridSize; j<(int)Math.Ceiling(halfGridSize); j++) {
 				FlowerPoint flowerPoint = new FlowerPoint();
-				Vector2 position = Position + new Vector2(i * sectorSize + halfSectorSize + GD.Randf() * sectorSize - halfSectorSize, 
-						j * sectorSize + halfSectorSize + GD.Randf() * sectorSize - halfSectorSize);
+				GD.Print(sectorSize * sectorGridSize % 2);
+				Vector2 position = Position + new Vector2(i * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize, 
+						j * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize);
 				flowerPoint.position = position;
 				flowerPoint.spawned = false;
 				flowerPoints.Add(flowerPoint);

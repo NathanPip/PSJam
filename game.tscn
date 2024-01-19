@@ -28,13 +28,14 @@ texture = ExtResource("2_1d36p")
 sources/1 = SubResource("TileSetAtlasSource_bk5ga")
 
 [node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_ww8nr")
 
 [node name="BeeKeeper" parent="." instance=ExtResource("1_phyg1")]
-z_index = 1
 Speed = 200.0
 
 [node name="MeadowTileMap" type="TileMap" parent="."]
+z_index = -1
 tile_set = SubResource("TileSet_aa4ds")
 format = 2
 layer_0/name = "Grass"

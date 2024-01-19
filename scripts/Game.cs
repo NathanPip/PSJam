@@ -19,14 +19,14 @@ public partial class Game : Node2D
 
 	Inventory inventory = new Inventory();
 
-    public override void _Input(InputEvent @event)
-    {
+	public override void _Input(InputEvent @event)
+	{
 		if(@event.IsActionPressed("SelectItem1")){
 			EmitSignal(SignalName.InventoryChanged);
 		}
-    }
-    // Called when the node enters the scene tree for the first time.
-    
+	}
+	// Called when the node enters the scene tree for the first time.
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

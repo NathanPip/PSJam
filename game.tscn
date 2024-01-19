@@ -101,5 +101,3 @@ sprite_frames = ExtResource("8_fcjk4")
 position = Vector2(253, 1)
 
 [node name="Flower" parent="." instance=ExtResource("8_oyukf")]
-
-[connection signal="InventoryChanged" from="." to="BeeKeeper" method="OnBeehiveInventory"]

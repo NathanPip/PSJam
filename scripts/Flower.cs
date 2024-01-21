@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Flower : Node2D
 {
@@ -15,6 +16,19 @@ public partial class Flower : Node2D
 	public float sproutTime = 0;
 	public bool isBloomed = false;
 	public float bloomAmount = 1;
+
+	Texture2D MedusaFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/Medusaflower.png");
+	Texture2D BlackEyeSusanFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blackeyesusan.png");
+	Texture2D BlueFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png");
+	Texture2D MouthFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png");
+	Texture2D Shroom = (Texture2D)ResourceLoader.Load("res://assets/sprites/shroom.png");
+
+	public List<Texture2D> textures = new List<Texture2D>() {
+	 	(Texture2D)ResourceLoader.Load("res://assets/sprites/Medusaflower.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/blackeyesusan.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png"),
+	};
 	
 	public void Pollinate(double delta) {
 		bloomAmount += (float)delta * bloomSpeed; 
@@ -24,18 +38,19 @@ public partial class Flower : Node2D
 			isBloomed = true;
 		}
 	}
-	// Called when the node enters the scene tree for the first time.
+
 	public override void _Ready()
 	{
 		if(!hasSprouted) {
 			sproutTime = (float)GD.RandRange(minSproutTime, maxSproutTime);
 			Visible = false;
 		}
+		Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
+		sprite.Texture = textures[(int)Mathf.Floor(GD.RandRange(0,  textures.Count-1))];
 		float scale = bloomAmount / 200 + .5f;
 		Scale = new Vector2(scale, scale);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		if(!hasSprouted){

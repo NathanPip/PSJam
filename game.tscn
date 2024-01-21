@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=16 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
 [ext_resource type="Texture2D" uid="uid://2d2llejrrevu" path="res://assets/sprites/test_grass_sheet.png" id="2_1d36p"]
 [ext_resource type="Script" path="res://scripts/Camera.cs" id="2_6oj3j"]
+[ext_resource type="Script" path="res://scripts/PlayerInventory.cs" id="3_85gms"]
 [ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
@@ -37,6 +38,9 @@ script = ExtResource("1_ww8nr")
 position = Vector2(-131, -20)
 Speed = 200.0
 
+[node name="PlayerInventory" type="Node" parent="BeeKeeper"]
+script = ExtResource("3_85gms")
+
 [node name="MeadowTileMap" type="TileMap" parent="."]
 z_index = -1
 tile_set = SubResource("TileSet_aa4ds")
@@ -46,6 +50,7 @@ layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0,
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
+grassSpawnChance = 0.03
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -53,9 +58,9 @@ process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_6oj3j")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="HUD"]
 layout_mode = 3
 anchor_top = 0.836
 anchor_right = 1.0
@@ -64,7 +69,7 @@ offset_top = 11.272
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+[node name="CenterContainer" type="CenterContainer" parent="HUD/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -78,11 +83,11 @@ offset_bottom = 0.192017
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/CenterContainer"]
 layout_mode = 2
 script = ExtResource("6_m8mfb")
 
-[node name="Item1" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+[node name="Item1" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -90,12 +95,12 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item1"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item1"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("8_fcjk4")
 
-[node name="Item2" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+[node name="Item2" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -103,12 +108,12 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item2"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
 
-[node name="Item3" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+[node name="Item3" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -116,27 +121,13 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item3"]
-position = Vector2(36.5, 36)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("11_x1emn")
-frame = 3
-
-[node name="Item4" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("5_dejdg")
-icon = ExtResource("5_60nsk")
-flat = true
-script = ExtResource("9_ld68y")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item4"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item3"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
 frame = 3
 
-[node name="Item5" type="Button" parent="CanvasLayer/Control/CenterContainer/HBoxContainer"]
+[node name="Item4" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -144,7 +135,21 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/CenterContainer/HBoxContainer/Item5"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item4"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+frame = 3
+
+[node name="Item5" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item5"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
@@ -152,3 +157,4 @@ frame = 3
 
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
 position = Vector2(253, 1)
+initialFlowerSproutSpawnChance = 1.0

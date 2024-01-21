@@ -29,3 +29,5 @@ visible = false
 position = Vector2(20, 0)
 sprite_frames = ExtResource("3_4tc00")
 script = ExtResource("4_hy1sd")
+
+[node name="Node" type="Node" parent="."]

@@ -134,9 +134,15 @@ public partial class BeeHive : Node2D
 	{
 		distanceFromPlauer = GlobalPosition.DistanceTo(player.GlobalPosition);
 		if(distanceFromPlauer < 50) {
-			player.closeHive = this;
+			if(player.closeHive == null) {
+				player.closeHive = this;
+			} else if (player.closeHive.distanceFromPlauer > distanceFromPlauer) {
+				player.closeHive = this;
+			}
 		} else {
-		 	player.closeHive = this;
+			if(player.closeHive == this){
+				player.closeHive = null;
+			}
 		}
 		if(!spawnedBees){
 			SpawnBees();

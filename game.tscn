@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=16 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
 [ext_resource type="Texture2D" uid="uid://2d2llejrrevu" path="res://assets/sprites/test_grass_sheet.png" id="2_1d36p"]
 [ext_resource type="Script" path="res://scripts/Camera.cs" id="2_6oj3j"]
-[ext_resource type="Script" path="res://scripts/PlayerInventory.cs" id="3_85gms"]
 [ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
@@ -38,9 +37,7 @@ script = ExtResource("1_ww8nr")
 [node name="BeeKeeper" parent="." instance=ExtResource("1_phyg1")]
 position = Vector2(-131, -20)
 Speed = 200.0
-
-[node name="PlayerInventory" type="Node" parent="BeeKeeper"]
-script = ExtResource("3_85gms")
+beeHiveCount = 1
 
 [node name="MeadowTileMap" type="TileMap" parent="."]
 z_index = -1

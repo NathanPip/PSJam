@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=17 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -13,6 +13,7 @@
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
 [ext_resource type="Script" path="res://scripts/InventoryButton.cs" id="9_ld68y"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
+[ext_resource type="Script" path="res://scripts/UI_Jar.cs" id="13_512l2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -112,49 +113,11 @@ script = ExtResource("9_ld68y")
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
-
-[node name="Item3" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("5_dejdg")
-icon = ExtResource("5_60nsk")
-flat = true
-script = ExtResource("9_ld68y")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item3"]
-position = Vector2(36.5, 36)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("11_x1emn")
-frame = 3
-
-[node name="Item4" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("5_dejdg")
-icon = ExtResource("5_60nsk")
-flat = true
-script = ExtResource("9_ld68y")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item4"]
-position = Vector2(36.5, 36)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("11_x1emn")
-frame = 3
-
-[node name="Item5" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
-layout_mode = 2
-toggle_mode = true
-button_group = ExtResource("5_dejdg")
-icon = ExtResource("5_60nsk")
-flat = true
-script = ExtResource("9_ld68y")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item5"]
-position = Vector2(36.5, 36)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("11_x1emn")
-frame = 3
+script = ExtResource("13_512l2")
 
 [node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
 position = Vector2(253, 1)
 initialFlowerSproutSpawnChance = 1.0
+
+[connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
+[connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer" method="OnInventoryChanged"]

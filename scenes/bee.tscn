@@ -17,7 +17,7 @@ z_index = 2
 script = ExtResource("1_8fukp")
 MovementSpeed = 100.0
 nectarCapacity = 3.0
-collectionRate = 1.0
+collectionRate = 0.1
 
 [node name="BeeSprite" type="Sprite2D" parent="."]
 rotation = 1.5708

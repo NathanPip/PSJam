@@ -34,15 +34,15 @@ public partial class InventoryUI : HBoxContainer
 	{
 	}
 
-	public void OnInventoryChanged(string item) {
-		if(item == "item1") {
+	public void OnInventoryChanged(int item) {
+		if(item == 0) {
+			selectInventoryButton(currentButton);
+		}
+		if(item == 1) {
 			selectInventoryButton(inventoryButton1);
 		}
-		if(item == "item2") {
+		if(item == 2) {
 			selectInventoryButton(inventoryButton2);
-		}
-		if(item == "item3") {
-			selectInventoryButton(inventoryButton3);
 		}
 	}
 }

@@ -28,13 +28,15 @@ public partial class BeeHive : Node2D
 	[Export]
 	public float honeyLimit = 100;
 	public int bees = 0;
-	public int distanceFromPlayer = 90;
+	public int spawnDistanceFromPlayer = 90;
+	public float distanceFromPlauer = 0;
 	public bool spawnedBees = false;
 	public int flowersBloomed = 0;
 	public List<FlowerPoint> flowerPoints = new List<FlowerPoint>();
 	public List<Flower> flowers = new List<Flower>();
 	PackedScene beeScene = ResourceLoader.Load<PackedScene>("res://scenes/bee.tscn");
 	PackedScene flowerScene = ResourceLoader.Load<PackedScene>("res://scenes/flower.tscn");
+	BeeKeeper player = null;
 
 	[Signal]
 	public delegate void AddHoneyWithArgumentEventHandler(float honeyAmount);
@@ -113,14 +115,29 @@ public partial class BeeHive : Node2D
 		honey += amount;
 	}
 
+	public void RemoveHoney(float amount) 
+	{
+		honey -= amount;
+		if(honey < 0) {
+			honey = 0;
+		}
+	}
+
 	public override void _Ready()
 	{
-		
+		player = GetParent().GetNode<BeeKeeper>("BeeKeeper");
+		distanceFromPlauer = GlobalPosition.DistanceTo(player.GlobalPosition);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		distanceFromPlauer = GlobalPosition.DistanceTo(player.GlobalPosition);
+		if(distanceFromPlauer < 50) {
+			player.closeHive = this;
+		} else {
+		 	player.closeHive = this;
+		}
 		if(!spawnedBees){
 			SpawnBees();
 			SpawnFlowerPoint();

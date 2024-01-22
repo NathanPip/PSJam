@@ -14,7 +14,9 @@ public partial class BeeKeeper : CharacterBody2D
 	public float Speed = 300.0f;
 
 	private int MapLimits = 0;
-	
+
+	[Export]
+	public bool walking = false;
 	[Export]
 	public bool NearBeeHive = false;
 	[Export]
@@ -75,9 +77,9 @@ public partial class BeeKeeper : CharacterBody2D
 
 	public void ChangeInventoryItem(EInventoryItem item)
 	{
+		jarSprite.Visible = false;
+		beehiveSprite.Visible = false;
 		if(CurrentItem == item) {
-			beehiveSprite.Visible = false;
-			jarSprite.Visible = false;
 			CurrentItem = EInventoryItem.None;
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 0);
 			return;
@@ -196,9 +198,17 @@ public partial class BeeKeeper : CharacterBody2D
 				playerSprite.FlipH = false;
 			}
 			velocity = direction * Speed;
+			if(!walking){
+				walking = true;
+				playerSprite.Play("walking");
+			}
 		}
 		else
 		{
+			if(walking){
+				walking = false;
+				playerSprite.Play("idle");
+			}
 			velocity = velocity.MoveToward(Vector2.Zero, Speed);
 		}
 		Vector2 nextPosition = Position + velocity * (float)delta;

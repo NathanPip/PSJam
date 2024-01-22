@@ -21,8 +21,8 @@ shape = SubResource("RectangleShape2D_yfp6n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
 sprite_frames = ExtResource("4_jbpox")
-autoplay = "default"
-frame_progress = 0.390276
+animation = &"walking"
+autoplay = "idle"
 offset = Vector2(0, -9)
 
 [node name="BeehiveSprite" type="AnimatedSprite2D" parent="."]

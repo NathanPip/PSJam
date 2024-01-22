@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b22ugmka03yqs" path="res://assets/sprites/realBeeKeeper.png" id="1_x8mto"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gle5w"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6xau"]
 atlas = ExtResource("1_x8mto")
 region = Rect2(0, 0, 18, 18)
 
@@ -26,8 +26,13 @@ region = Rect2(72, 0, 18, 18)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gle5w")
+"texture": SubResource("AtlasTexture_v6xau")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_msvxd")
 }, {
@@ -41,6 +46,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_a2b4q")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walking",
 "speed": 5.0
 }]

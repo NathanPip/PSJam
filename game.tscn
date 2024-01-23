@@ -48,7 +48,7 @@ layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0,
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
-grassSpawnChance = 0.01
+grassSpawnChance = 0.003
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)

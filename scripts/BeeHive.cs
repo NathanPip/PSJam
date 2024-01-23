@@ -15,8 +15,17 @@ public partial class BeeHive : Node2D
 	public int startingBees = 10;
 	[Export]
 	public int beeMoveRange = 100;
+	private float _honey = 0;
 	[Export]
-	public float honey = 0;
+	public float honey {
+		get {
+			return _honey;
+		}
+		set {
+			_honey = value;
+			EmitSignal(SignalName.AddHoneyWithArgument, _honey);
+		}
+	}
 	[Export]
 	public int flowerSpawnAmount = 40;
 	[Export]
@@ -57,8 +66,6 @@ public partial class BeeHive : Node2D
 			honey = honeyLimit;
 			isFull = true;
 		}
-		EmitSignal(SignalName.AddHoneyWithArgument, honey);
-			
 	}
 
 	public void AddFlower(Vector2 position) {

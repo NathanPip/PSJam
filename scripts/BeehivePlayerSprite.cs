@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class BeehivePlayerSprite : AnimatedSprite2D
 {
@@ -13,19 +12,19 @@ public partial class BeehivePlayerSprite : AnimatedSprite2D
 		}
 		if (@event.IsActionPressed("MoveLeft"))
 		{
-			Position = Position with { X = -startingPosition.X, Y = 0 }; 
+			Position = Position with { X = -startingPosition.X, Y = -9 }; 
 		}
 		if(@event.IsActionPressed("MoveUp")){
-			Position = Position with { Y = -startingPosition.X, X = 0 }; 
+			Position = Position with { Y = -startingPosition.X - 9, X = 0 }; 
 		}
 		if(@event.IsActionPressed("MoveDown")){
-			Position = Position with { Y = startingPosition.X, X = 0 };
+			Position = Position with { Y = startingPosition.X - 9, X = 0 };
 		}
 	}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		startingPosition = Position;
+		startingPosition = Position with { Y = -9 };
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

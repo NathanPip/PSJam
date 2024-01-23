@@ -12,6 +12,8 @@ public partial class BeeKeeper : CharacterBody2D
 {
 	[Export]
 	public float Speed = 300.0f;
+	[Export]
+	public float Acceleration = 1200.0f;
 
 	private int MapLimits = 0;
 
@@ -197,7 +199,11 @@ public partial class BeeKeeper : CharacterBody2D
 			} else if (direction.X > 0){
 				playerSprite.FlipH = false;
 			}
-			velocity = direction * Speed;
+			velocity += direction * Acceleration * (float)delta;
+			if (velocity.Length() > Speed)
+			{
+				velocity = direction * Speed;
+			}
 			if(!walking){
 				walking = true;
 				playerSprite.Play("walking");
@@ -209,7 +215,7 @@ public partial class BeeKeeper : CharacterBody2D
 				walking = false;
 				playerSprite.Play("idle");
 			}
-			velocity = velocity.MoveToward(Vector2.Zero, Speed);
+			velocity = velocity.MoveToward(Vector2.Zero, Acceleration * (float)delta);
 		}
 		Vector2 nextPosition = Position + velocity * (float)delta;
 		if (nextPosition.X < -MapLimits || nextPosition.X > MapLimits)

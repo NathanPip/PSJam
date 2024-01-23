@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
 [ext_resource type="Script" path="res://scripts/InventoryUI.cs" id="6_m8mfb"]
-[ext_resource type="PackedScene" uid="uid://ct7p07c2555q7" path="res://scenes/bee_hive.tscn" id="7_dl4yr"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
 [ext_resource type="Script" path="res://scripts/InventoryButton.cs" id="9_ld68y"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
+[ext_resource type="AudioStream" uid="uid://cmpmq03nivx5f" path="res://assets/sounds/PSJam_Tune.mp3" id="13_330u5"]
 [ext_resource type="Script" path="res://scripts/UI_Jar.cs" id="13_512l2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
@@ -48,7 +48,7 @@ layer_0/tile_data = PackedInt32Array(-589847, 1, 0, 524298, 1, 0, -851946, 1, 0,
 layer_1/name = "Flowers"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
-grassSpawnChance = 0.03
+grassSpawnChance = 0.01
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
@@ -112,9 +112,12 @@ scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
 script = ExtResource("13_512l2")
 
-[node name="BeeHive" parent="." instance=ExtResource("7_dl4yr")]
-position = Vector2(253, 1)
-initialFlowerSproutSpawnChance = 1.0
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_330u5")
+autoplay = true
+max_distance = 10000.0
+attenuation = 0.0126914
+panning_strength = 0.0
 
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
 [connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer" method="OnInventoryChanged"]

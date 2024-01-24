@@ -42,7 +42,7 @@ public partial class InventoryUI : HBoxContainer
 			selectInventoryButton(inventoryButton1);
 		}
 		if(item == 2) {
-			// selectInventoryButton(inventoryButton2);
+			selectInventoryButton(inventoryButton2);
 		}
 	}
 }

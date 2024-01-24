@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=22 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
+[ext_resource type="Texture2D" uid="uid://c1b8xddx1dy8v" path="res://assets/sprites/honey_shop.png" id="19_l5i1y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -225,6 +226,10 @@ max_distance = 10000.0
 attenuation = 0.0126914
 panning_strength = 0.0
 bus = &"Music"
+
+[node name="HoneyShop" type="Sprite2D" parent="."]
+position = Vector2(-218, -51)
+texture = ExtResource("19_l5i1y")
 
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
 [connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer" method="OnInventoryChanged"]

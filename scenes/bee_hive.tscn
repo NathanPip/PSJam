@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/BeeHive.cs" id="1_crkyv"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="2_0jhok"]
-[ext_resource type="Script" path="res://scripts/HoneyDebugGUI.cs" id="3_pjpv4"]
+[ext_resource type="Script" path="res://scripts/UI/HoneyDebugGUI.cs" id="3_pjpv4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_debyv"]
 size = Vector2(42, 6)

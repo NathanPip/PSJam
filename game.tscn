@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=21 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -7,12 +7,17 @@
 [ext_resource type="Script" path="res://scripts/Meadow.cs" id="4_yewd1"]
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
-[ext_resource type="Script" path="res://scripts/InventoryUI.cs" id="6_m8mfb"]
+[ext_resource type="Script" path="res://scripts/UI/InventoryUI.cs" id="6_m8mfb"]
 [ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
-[ext_resource type="Script" path="res://scripts/InventoryButton.cs" id="9_ld68y"]
+[ext_resource type="Script" path="res://scripts/UI/InventoryButton.cs" id="9_ld68y"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
 [ext_resource type="AudioStream" uid="uid://cmpmq03nivx5f" path="res://assets/sounds/PSJam_Tune.mp3" id="13_330u5"]
-[ext_resource type="Script" path="res://scripts/UI_Jar.cs" id="13_512l2"]
+[ext_resource type="Script" path="res://scripts/UI/UI_Jar.cs" id="13_512l2"]
+[ext_resource type="Script" path="res://scripts/UI/MusicToggleButton.cs" id="14_1j7v1"]
+[ext_resource type="Script" path="res://scripts/UI/SoundToggleButton.cs" id="15_qrwu6"]
+[ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
+[ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
+[ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -58,7 +63,7 @@ script = ExtResource("2_6oj3j")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="HUD"]
+[node name="InventoryControl" type="Control" parent="HUD"]
 layout_mode = 3
 anchor_top = 0.836
 anchor_right = 1.0
@@ -67,7 +72,7 @@ offset_top = 11.272
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="HUD/Control"]
+[node name="CenterContainer" type="CenterContainer" parent="HUD/InventoryControl"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -81,11 +86,11 @@ offset_bottom = 0.192017
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/InventoryControl/CenterContainer"]
 layout_mode = 2
 script = ExtResource("6_m8mfb")
 
-[node name="Item1" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
+[node name="Item1" type="Button" parent="HUD/InventoryControl/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -93,12 +98,12 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item1"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("8_fcjk4")
 
-[node name="Item2" type="Button" parent="HUD/Control/CenterContainer/HBoxContainer"]
+[node name="Item2" type="Button" parent="HUD/InventoryControl/CenterContainer/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
@@ -106,18 +111,102 @@ icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/CenterContainer/HBoxContainer/Item2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("11_x1emn")
 script = ExtResource("13_512l2")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="MenuButtonControl" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -338.0
+offset_bottom = 75.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MenuButtonControl"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = 2.5
+offset_bottom = 10.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MusicToggle" type="Button" parent="HUD/MenuButtonControl/HBoxContainer"]
+layout_mode = 2
+text = "Toggle Music"
+flat = true
+script = ExtResource("14_1j7v1")
+
+[node name="MenuToggle" type="Button" parent="HUD/MenuButtonControl/HBoxContainer"]
+layout_mode = 2
+text = "Menu"
+flat = true
+script = ExtResource("16_72bxh")
+
+[node name="MenuControl" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = -155.0
+offset_right = 230.0
+offset_bottom = 161.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_q8mk8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MenuControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeGameButton" type="Button" parent="HUD/MenuControl/VBoxContainer"]
+layout_mode = 2
+text = "Resume Game"
+flat = true
+
+[node name="ToggleSoundButton" type="Button" parent="HUD/MenuControl/VBoxContainer"]
+layout_mode = 2
+text = "Toggle Sound"
+flat = true
+script = ExtResource("15_qrwu6")
+
+[node name="QuitGameButton" type="Button" parent="HUD/MenuControl/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+flat = true
+script = ExtResource("18_vcu8s")
+
+[node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_330u5")
 autoplay = true
 max_distance = 10000.0
 attenuation = 0.0126914
 panning_strength = 0.0
+bus = &"Music"
 
-[connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
-[connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/Control/CenterContainer/HBoxContainer" method="OnInventoryChanged"]
+[connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
+[connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer" method="OnInventoryChanged"]
+[connection signal="pressed" from="HUD/MenuButtonControl/HBoxContainer/MenuToggle" to="HUD/MenuControl" method="OnMenuButtonPressed"]
+[connection signal="pressed" from="HUD/MenuControl/VBoxContainer/ResumeGameButton" to="HUD/MenuControl" method="OnMenuButtonPressed"]

@@ -1,0 +1,53 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://bwgp73rfs0q55"]
+
+[ext_resource type="Texture2D" uid="uid://dwyt3vvfavwhj" path="res://assets/sprites/Clearbeehive.png" id="1_ngxyo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja4f6"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2dfh"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yu4xc"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fqqh"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao0pq"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwrc1"]
+atlas = ExtResource("1_ngxyo")
+region = Rect2(80, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja4f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2dfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yu4xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fqqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao0pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwrc1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

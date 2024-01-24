@@ -30,6 +30,8 @@ public partial class BeeKeeper : CharacterBody2D
 	[Export]
 	public EInventoryItem CurrentItem = EInventoryItem.None;
 	[Export]
+	public int coins = 0;
+	[Export]
 	public float honeyAmount = 0.0f;
 	[Export]
 	public float honeyMax = 100.0f;
@@ -42,6 +44,10 @@ public partial class BeeKeeper : CharacterBody2D
 	public delegate void ChangePlayerHoneyWithArgumentEventHandler(float amount, float max);
 	[Signal]
 	public delegate void ChangePlayerInventoryWithArgumentEventHandler(int item);
+	[Signal]
+	public delegate void ChangePlayerBeehiveCountWithArgumentEventHandler(int count);
+	[Signal]
+	public delegate void ChangePlayerCoinsWithArgumentEventHandler(int coins);
 
 	enum EFacingDirection
 	{
@@ -74,6 +80,10 @@ public partial class BeeKeeper : CharacterBody2D
 				break;
 		}
 		beehiveSprite.Visible = false;
+		CurrentItem = EInventoryItem.None;
+		beeHiveCount--;
+		EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 0);
+		EmitSignal(SignalName.ChangePlayerBeehiveCountWithArgument, beeHiveCount);
 		GetParent().AddChild(beehive);
 	}
 
@@ -173,7 +183,7 @@ public partial class BeeKeeper : CharacterBody2D
 	}
 
 	public override void _Ready() {
-		MapLimits = GetNode<Game>("/root/Game").MapSize / 2;
+		MapLimits = Globals.MapSize / 2;
 		beehiveSprite = GetNode<AnimatedSprite2D>("BeehiveSprite");
 		jarSprite = GetNode<AnimatedSprite2D>("JarSprite");
 		playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");

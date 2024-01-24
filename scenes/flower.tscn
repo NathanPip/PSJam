@@ -6,6 +6,7 @@
 [node name="Flower" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_x2jog")
+bloomSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

@@ -4,16 +4,24 @@ using System;
 public partial class InventoryButton : Button
 {
 
+	[Export]
+	public EInventoryItem Item = EInventoryItem.None;
 	double lerp = 0;
 	bool isAnimatingUp = false;
 	bool isAnimatingDown = false;
 
 	public void AnimateUp() {
+		if(Item == EInventoryItem.None) {
+			return;
+		}
 		isAnimatingDown = false;
 		isAnimatingUp = true;
 	}
 
 	public void AnimateDown() {
+		if(Item == EInventoryItem.None) {
+			return;
+		}
 		isAnimatingUp = false;
 		isAnimatingDown = true;
 	}
@@ -41,6 +49,28 @@ public partial class InventoryButton : Button
 			if(lerp <= 0) {
 				isAnimatingDown = false;
 				lerp = 0;
+			}
+		}
+	}
+
+	public void OnHoneyAmountChanged(float amount, float max) {
+		if(amount >= max) {
+			GetNode<Label>("Label").Text = ((int)max).ToString();
+			return;
+		}
+		if(Item == EInventoryItem.Jar) {
+			GetNode<Label>("Label").Text = ((int)amount).ToString();
+		}
+	}
+
+	public void OnBeehiveCountChanged(int count) {
+		if(Item == EInventoryItem.BeeHive) {
+			GetNode<Label>("Label").Text = count.ToString();
+			if(count == 0) {
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").SelfModulate = new Color("777777FF");
+			}
+			else {
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").SelfModulate = new Color("FFFFFFFF");
 			}
 		}
 	}

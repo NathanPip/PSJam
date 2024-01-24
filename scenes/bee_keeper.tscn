@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c10sblrpsenwp"]
 
 [ext_resource type="Script" path="res://scripts/BeeKeeper.cs" id="1_qal5l"]
-[ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="3_4tc00"]
+[ext_resource type="SpriteFrames" uid="uid://cbvs6s1xj5pfi" path="res://beehive_frames.tres" id="3_4tc00"]
 [ext_resource type="Script" path="res://scripts/BeehivePlayerSprite.cs" id="4_hy1sd"]
 [ext_resource type="SpriteFrames" uid="uid://c1iyodal3xckk" path="res://beekeeper_frames.tres" id="4_jbpox"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="5_8q43x"]

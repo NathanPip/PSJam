@@ -8,7 +8,7 @@ public partial class Camera : Camera2D
 	public override void _Ready()
 	{
 		target = GetNode<Node2D>("/root/Game/BeeKeeper"); 
-		int limits = GetNode<Game>("/root/Game").MapSize / 2;
+		int limits = Globals.MapSize / 2;
 		LimitLeft = (int)-limits;
 		LimitRight = (int)limits;
 		LimitTop = (int)-limits;

@@ -26,7 +26,7 @@ public partial class InventoryUI : HBoxContainer
 	{
 		inventoryButton1 = GetNode<InventoryButton>("Item1");
 		inventoryButton2 = GetNode<InventoryButton>("Item2");
-		inventoryButton3 = GetNode<InventoryButton>("Item3");
+		// inventoryButton3 = GetNode<InventoryButton>("Item3");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,7 +42,7 @@ public partial class InventoryUI : HBoxContainer
 			selectInventoryButton(inventoryButton1);
 		}
 		if(item == 2) {
-			selectInventoryButton(inventoryButton2);
+			// selectInventoryButton(inventoryButton2);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=23 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -8,13 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://6mxxhka4xmc" path="res://assets/sprites/inventory_icon.png" id="5_60nsk"]
 [ext_resource type="ButtonGroup" uid="uid://cvjonl0l3xg02" path="res://inventory_button_group.tres" id="5_dejdg"]
 [ext_resource type="Script" path="res://scripts/UI/InventoryUI.cs" id="6_m8mfb"]
-[ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="8_fcjk4"]
+[ext_resource type="SpriteFrames" uid="uid://cbvs6s1xj5pfi" path="res://beehive_frames.tres" id="8_fcjk4"]
 [ext_resource type="Script" path="res://scripts/UI/InventoryButton.cs" id="9_ld68y"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
 [ext_resource type="AudioStream" uid="uid://cmpmq03nivx5f" path="res://assets/sounds/PSJam_Tune.mp3" id="13_330u5"]
 [ext_resource type="Script" path="res://scripts/UI/UI_Jar.cs" id="13_512l2"]
+[ext_resource type="Texture2D" uid="uid://bcou6fmkal10w" path="res://assets/sprites/music_icon.png" id="13_fm78w"]
 [ext_resource type="Script" path="res://scripts/UI/MusicToggleButton.cs" id="14_1j7v1"]
 [ext_resource type="Script" path="res://scripts/UI/SoundToggleButton.cs" id="15_qrwu6"]
+[ext_resource type="Texture2D" uid="uid://dnhawb8cg1kuf" path="res://assets/sprites/menu_icon.png" id="15_vmo40"]
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
@@ -156,33 +158,33 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -338.0
-offset_bottom = 75.0
+offset_left = -232.0
+offset_top = 8.0
+offset_bottom = 38.0
 grow_horizontal = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/MenuButtonControl"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -38.0
-offset_top = 2.5
-offset_bottom = 10.5
+offset_left = -80.0
+offset_top = -1.0
+offset_right = -40.0
+offset_bottom = 23.0
 grow_horizontal = 0
-grow_vertical = 2
+scale = Vector2(2, 2)
 
-[node name="MusicToggle" type="Button" parent="HUD/MenuButtonControl/HBoxContainer"]
+[node name="MusicToggle" type="TextureButton" parent="HUD/MenuButtonControl/HBoxContainer"]
 layout_mode = 2
-text = "Toggle Music"
-flat = true
+texture_normal = ExtResource("13_fm78w")
+stretch_mode = 5
 script = ExtResource("14_1j7v1")
 
-[node name="MenuToggle" type="Button" parent="HUD/MenuButtonControl/HBoxContainer"]
+[node name="MenuToggle" type="TextureButton" parent="HUD/MenuButtonControl/HBoxContainer"]
 layout_mode = 2
-text = "Menu"
-flat = true
+texture_normal = ExtResource("15_vmo40")
+stretch_mode = 5
 script = ExtResource("16_72bxh")
 
 [node name="MenuControl" type="Control" parent="HUD"]

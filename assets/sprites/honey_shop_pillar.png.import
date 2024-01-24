@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5s6vdntifhje"
-path="res://.godot/imported/beehive-top-mask-inner.png-acb1c6ed91f782a161a5310830f69499.ctex"
+uid="uid://4603saejo7du"
+path="res://.godot/imported/honey_shop_pillar.png-0ddccdc74644555fd907e26ed5df8f13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/beehive-top-mask-inner.png"
-dest_files=["res://.godot/imported/beehive-top-mask-inner.png-acb1c6ed91f782a161a5310830f69499.ctex"]
+source_file="res://assets/sprites/honey_shop_pillar.png"
+dest_files=["res://.godot/imported/honey_shop_pillar.png-0ddccdc74644555fd907e26ed5df8f13.ctex"]
 
 [params]
 

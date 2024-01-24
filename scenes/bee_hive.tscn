@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/BeeHive.cs" id="1_crkyv"]
 [ext_resource type="Texture2D" uid="uid://dwyt3vvfavwhj" path="res://assets/sprites/Clearbeehive.png" id="2_t7npw"]
 [ext_resource type="Script" path="res://scripts/UI/HoneyDebugGUI.cs" id="3_pjpv4"]
-[ext_resource type="Texture2D" uid="uid://c5s6vdntifhje" path="res://assets/sprites/beehive-top-mask-inner.png" id="4_h18oe"]
+[ext_resource type="Texture2D" uid="uid://c5s6vdntifhje" path="res://assets/sprites/beehive_top_mask_inner.png" id="4_h18oe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wc1hi"]
 atlas = ExtResource("2_t7npw")
@@ -71,12 +71,23 @@ animations = [{
 size = Vector2(42, 6)
 
 [node name="BeeHive" type="Node2D"]
-y_sort_enabled = true
 script = ExtResource("1_crkyv")
 flowerSpreadDistance = 400
 startingBees = 6
 flowerSpawnAmount = 20
 sectorGridSize = 5.0
+
+[node name="HoneyMeterMask" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(0, -34)
+texture = ExtResource("4_h18oe")
+
+[node name="HoneyMeter" type="ColorRect" parent="HoneyMeterMask"]
+offset_left = -24.0
+offset_top = 10.0
+offset_right = 24.0
+offset_bottom = 31.0
+color = Color(0.992157, 0.980392, 0.254902, 1)
 
 [node name="BeeHiveSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
@@ -97,17 +108,5 @@ offset_top = -77.0
 offset_right = 67.0
 offset_bottom = -51.0
 script = ExtResource("3_pjpv4")
-
-[node name="HoneyMeterMask" type="Sprite2D" parent="."]
-clip_children = 2
-position = Vector2(0, -34)
-texture = ExtResource("4_h18oe")
-
-[node name="HoneyMeter" type="ColorRect" parent="HoneyMeterMask"]
-offset_left = -24.0
-offset_top = 10.0
-offset_right = 24.0
-offset_bottom = 31.0
-color = Color(0.992157, 0.980392, 0.254902, 1)
 
 [connection signal="AddHoneyWithArgument" from="." to="RichTextLabel" method="OnHoneyAdded"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=25 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
+[ext_resource type="Texture2D" uid="uid://c1b8xddx1dy8v" path="res://assets/sprites/honey_shop.png" id="21_vuren"]
+[ext_resource type="Texture2D" uid="uid://4603saejo7du" path="res://assets/sprites/honey_shop_pillar.png" id="22_46lvk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -128,6 +130,7 @@ script = ExtResource("6_m8mfb")
 
 [node name="Item1" type="Button" parent="HUD/InventoryControl/CenterContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
@@ -150,6 +153,7 @@ text = "0"
 
 [node name="Item2" type="Button" parent="HUD/InventoryControl/CenterContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 toggle_mode = true
 button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
@@ -196,12 +200,14 @@ scale = Vector2(2, 2)
 
 [node name="MusicToggle" type="TextureButton" parent="HUD/MenuButtonControl/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("13_fm78w")
 stretch_mode = 5
 script = ExtResource("14_1j7v1")
 
 [node name="MenuToggle" type="TextureButton" parent="HUD/MenuButtonControl/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("15_vmo40")
 stretch_mode = 5
 script = ExtResource("16_72bxh")
@@ -260,6 +266,23 @@ max_distance = 10000.0
 attenuation = 0.0126914
 panning_strength = 0.0
 bus = &"Music"
+
+[node name="ShopArea" type="Node2D" parent="."]
+position = Vector2(151, 6)
+
+[node name="Shop" type="Node2D" parent="ShopArea"]
+position = Vector2(209, 77)
+
+[node name="ShopSprite" type="Sprite2D" parent="ShopArea/Shop"]
+z_index = 1
+scale = Vector2(3, 3)
+texture = ExtResource("21_vuren")
+
+[node name="ShopPillarSprite" type="Sprite2D" parent="ShopArea/Shop"]
+z_index = -1
+position = Vector2(30, 9)
+scale = Vector2(3, 3)
+texture = ExtResource("22_46lvk")
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]

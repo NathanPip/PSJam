@@ -115,26 +115,26 @@ public partial class BeeKeeper : CharacterBody2D
 		if(honeyAmount > honeyMax){
 			honeyAmount = honeyMax;
 		}
-        if (honeyAmount > honeyMax * 0.9f)
-        {
-            jarSprite.Frame = 4;
-        }
-        else if (honeyAmount > honeyMax * 0.75f)
-        {
-            jarSprite.Frame = 3;
-        }
-        else if (honeyAmount > honeyMax * 0.33f)
-        {
-            jarSprite.Frame = 2;
-        }
-        else if (honeyAmount > 0.0f)
-        {
-            jarSprite.Frame = 1;
-        }
-        else if (honeyAmount <= 0.0f)
-        {
-            jarSprite.Frame = 0;
-        }
+		if (honeyAmount > honeyMax * 0.9f)
+		{
+			jarSprite.Frame = 4;
+		}
+		else if (honeyAmount > honeyMax * 0.75f)
+		{
+			jarSprite.Frame = 3;
+		}
+		else if (honeyAmount > honeyMax * 0.33f)
+		{
+			jarSprite.Frame = 2;
+		}
+		else if (honeyAmount > 0.0f)
+		{
+			jarSprite.Frame = 1;
+		}
+		else if (honeyAmount <= 0.0f)
+		{
+			jarSprite.Frame = 0;
+		}
 		EmitSignal(SignalName.ChangePlayerHoneyWithArgument, honeyAmount, honeyMax);
 	}
 

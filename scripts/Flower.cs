@@ -23,14 +23,15 @@ public partial class Flower : Node2D
 	Texture2D BlackEyeSusanFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blackeyesusan.png");
 	Texture2D BlueFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png");
 	Texture2D MouthFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png");
-	Texture2D Shroom = (Texture2D)ResourceLoader.Load("res://assets/sprites/shroom.png");
+	Texture2D PinkFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/pink_flower.png");
 
 	public List<Texture2D> textures = new List<Texture2D>() {
 	 	(Texture2D)ResourceLoader.Load("res://assets/sprites/Medusaflower.png"),
 		(Texture2D)ResourceLoader.Load("res://assets/sprites/blackeyesusan.png"),
-		(Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png"),
-		(Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png"),
-	};
+        (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png"),
+        (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/pink_flower.png")
+    };
 	
 	public void Pollinate(double delta) {
 		if(isBloomed) {

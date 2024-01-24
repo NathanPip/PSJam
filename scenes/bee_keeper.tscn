@@ -8,14 +8,14 @@
 [ext_resource type="Script" path="res://scripts/PlayerJarSprite.cs" id="6_t3bmc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfp6n"]
-size = Vector2(10.6667, 2.33333)
+size = Vector2(14, 2.33333)
 
 [node name="BeeKeeper" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_qal5l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.33333, -0.166667)
+position = Vector2(1, -0.166667)
 shape = SubResource("RectangleShape2D_yfp6n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

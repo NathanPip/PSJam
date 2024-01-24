@@ -160,6 +160,7 @@ public partial class BeeHive : Node2D
 	public void RemoveHoney(float amount) 
 	{
 		honey -= amount;
+		isFull = false;
 		beeHiveSprite.Play("Idle");
 		if(honey < 0) {
 			honey = 0;

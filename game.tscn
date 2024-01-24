@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=24 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -11,7 +11,6 @@
 [ext_resource type="SpriteFrames" uid="uid://cbvs6s1xj5pfi" path="res://beehive_frames.tres" id="8_fcjk4"]
 [ext_resource type="Script" path="res://scripts/UI/InventoryButton.cs" id="9_ld68y"]
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
-[ext_resource type="AudioStream" uid="uid://cmpmq03nivx5f" path="res://assets/sounds/PSJam_Tune.mp3" id="13_330u5"]
 [ext_resource type="Script" path="res://scripts/UI/UI_Jar.cs" id="13_512l2"]
 [ext_resource type="Texture2D" uid="uid://bcou6fmkal10w" path="res://assets/sprites/music_icon.png" id="13_fm78w"]
 [ext_resource type="Script" path="res://scripts/UI/MusicToggleButton.cs" id="14_1j7v1"]
@@ -20,8 +19,8 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
-[ext_resource type="Texture2D" uid="uid://c1b8xddx1dy8v" path="res://assets/sprites/honey_shop.png" id="21_vuren"]
-[ext_resource type="Texture2D" uid="uid://4603saejo7du" path="res://assets/sprites/honey_shop_pillar.png" id="22_46lvk"]
+[ext_resource type="AudioStream" uid="uid://y1dh2d2mjc5u" path="res://assets/sounds/PSJam_Tune_2.mp3" id="20_rxatb"]
+[ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -260,29 +259,15 @@ flat = true
 script = ExtResource("18_vcu8s")
 
 [node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("13_330u5")
+stream = ExtResource("20_rxatb")
+volume_db = 2.0
 autoplay = true
 max_distance = 10000.0
-attenuation = 0.0126914
+attenuation = 0.000227791
 panning_strength = 0.0
 bus = &"Music"
 
-[node name="ShopArea" type="Node2D" parent="."]
-position = Vector2(151, 6)
-
-[node name="Shop" type="Node2D" parent="ShopArea"]
-position = Vector2(209, 77)
-
-[node name="ShopSprite" type="Sprite2D" parent="ShopArea/Shop"]
-z_index = 1
-scale = Vector2(3, 3)
-texture = ExtResource("21_vuren")
-
-[node name="ShopPillarSprite" type="Sprite2D" parent="ShopArea/Shop"]
-z_index = -1
-position = Vector2(30, 9)
-scale = Vector2(3, 3)
-texture = ExtResource("22_46lvk")
+[node name="ShopArea" parent="." instance=ExtResource("21_iya1w")]
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]

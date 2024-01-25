@@ -74,4 +74,13 @@ public partial class InventoryButton : Button
 			}
 		}
 	}
+	public void OnWaterAmountChanged(float amount, float max) {
+		if(amount >= max) {
+			GetNode<Label>("Label").Text = ((int)max).ToString();
+			return;
+		}
+		if(Item == EInventoryItem.WateringCan) {
+			GetNode<Label>("Label").Text = ((int)amount).ToString();
+		}
+	}
 }

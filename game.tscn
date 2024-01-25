@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=25 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -21,7 +21,7 @@
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
 [ext_resource type="AudioStream" uid="uid://y1dh2d2mjc5u" path="res://assets/sounds/PSJam_Tune_2.mp3" id="20_rxatb"]
 [ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
-[ext_resource type="Texture2D" uid="uid://d373qx4jad881" path="res://assets/sprites/well_sprite.png" id="22_up3ho"]
+[ext_resource type="PackedScene" uid="uid://doh0m8u0s8h7h" path="res://scenes/well.tscn" id="22_urfki"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -92,9 +92,6 @@ texture = ExtResource("2_1d36p")
 
 [sub_resource type="TileSet" id="TileSet_aa4ds"]
 sources/1 = SubResource("TileSetAtlasSource_bk5ga")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqpeu"]
-size = Vector2(58, 21)
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -201,6 +198,31 @@ offset_bottom = 27.808
 text = "0
 "
 
+[node name="Item3" type="Button" parent="HUD/InventoryControl/CenterContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+button_group = ExtResource("5_dejdg")
+icon = ExtResource("5_60nsk")
+flat = true
+script = ExtResource("9_ld68y")
+Item = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3"]
+position = Vector2(36.5, 36)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("11_x1emn")
+script = ExtResource("13_512l2")
+
+[node name="Label" type="Label" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 4.80798
+offset_right = 49.0
+offset_bottom = 27.808
+text = "0
+"
+
 [node name="MenuButtonControl" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 1
@@ -295,18 +317,7 @@ bus = &"Music"
 
 [node name="ShopArea" parent="." instance=ExtResource("21_iya1w")]
 
-[node name="Well" type="Node2D" parent="."]
-
-[node name="WellSprite" type="Sprite2D" parent="Well"]
-position = Vector2(0, -22)
-scale = Vector2(2, 2)
-texture = ExtResource("22_up3ho")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Well"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Well/StaticBody2D"]
-position = Vector2(-1, -0.5)
-shape = SubResource("RectangleShape2D_uqpeu")
+[node name="Well" parent="." instance=ExtResource("22_urfki")]
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4w5rt84datt6"]
+
+[ext_resource type="Script" path="res://scripts/BloomFlyer.cs" id="1_vbcb3"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_77jp3"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color = Color(0.992157, 0.980392, 0.254902, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6c3xp"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 44.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.5
+color = Color(0.992157, 0.980392, 0.254902, 1)
+
+[node name="BloomFlyer" type="Node2D"]
+script = ExtResource("1_vbcb3")
+Acceleration = 10.0
+
+[node name="FlyingParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-1, 0)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_77jp3")
+
+[node name="BloomParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_6c3xp")
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0

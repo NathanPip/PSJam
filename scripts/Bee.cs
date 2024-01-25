@@ -171,9 +171,12 @@ public class BeePollinatingState : State {
 					int YGridPosition = (int)Math.Min((int)Mathf.Floor(
 								((bee.Position.Y - bee.hive.Position.Y) + bee.hive.flowerSpreadDistance/2) / sectorSize), bee.hive.sectorGridSize - 1);
 					int index = YGridPosition * (int)bee.hive.sectorGridSize + XGridPosition;
-					FlowerPoint flowerPoint = bee.hive.flowerPoints[index];
-					if(!flowerPoint.spawned) {
-						bee.hive.SpawnFlower(index);
+					if(index < bee.hive.flowerPoints.Count){
+                        FlowerPoint flowerPoint = bee.hive.flowerPoints[index];
+                        if (!flowerPoint.spawned)
+                        {
+                            bee.hive.SpawnFlowerAtPointIndex(index);
+                        }
 					}
 				}
 				previousPollination += 2f;

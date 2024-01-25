@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://doh0m8u0s8h7h"]
+
+[ext_resource type="Texture2D" uid="uid://d373qx4jad881" path="res://assets/sprites/well_sprite.png" id="1_4tiwm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqpeu"]
+size = Vector2(58, 21)
+
+[node name="Well" type="Node2D"]
+
+[node name="WellSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -22)
+scale = Vector2(2, 2)
+texture = ExtResource("1_4tiwm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_uqpeu")

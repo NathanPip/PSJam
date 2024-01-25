@@ -92,16 +92,6 @@ public partial class BeeHive : Node2D
 		GetParent().AddChild(flower);
 	}
 
-	public void SpawnFlower(int index) {
-	 	FlowerPoint flowerPoint = flowerPoints[index];
-		Flower flower = (Flower)flowerScene.Instantiate();
-		flowers.Add((Flower)flower);
-		flower.Position = flowerPoint.position;
-		GetParent().AddChild(flower);
-		flowerPoint.spawned = true;
-		flowerPoints[index] = flowerPoint;
-	}
-
 	public void SpawnFlowerPoint() {
 		float sectorSize = flowerSpreadDistance / sectorGridSize;
 		float halfSectorSize = sectorSize / 2;
@@ -118,6 +108,13 @@ public partial class BeeHive : Node2D
 		}
 	}
 
+	public void SpawnFlowerAtPoint(FlowerPoint point) {
+		int index = flowerPoints.IndexOf(point);
+		if(index >= 0) {
+			SpawnFlowerAtPointIndex(index);
+		}
+	}
+
 	public void SpawnFlowerAtPointIndex(int index) {
 		FlowerPoint flowerPoint = flowerPoints[index];
         Flower flower = (Flower)flowerScene.Instantiate();
@@ -127,10 +124,11 @@ public partial class BeeHive : Node2D
         GetParent().AddChild(flower);
 		flowerPoint.spawned = true;
 		flowerPoints[index] = flowerPoint;
+		flowerPoints.RemoveAt(index);
 	}
 
 	public void SpawnInitialSprouts() {
-		for(int i=0; i < sectorGridSize * sectorGridSize; i++) {
+		for(int i=0; i < flowerPoints.Count; i++) {
 			FlowerPoint point = flowerPoints[i];
 			if(point.spawned) {
 				continue;
@@ -139,13 +137,7 @@ public partial class BeeHive : Node2D
 			if(chance > initialFlowerSproutSpawnChance) {
 				continue;
 			}
-			point.spawned = true;
-			flowerPoints[i] = point;
-			Flower flower = (Flower)flowerScene.Instantiate();
-			flower.hive = this;
-			flowers.Add((Flower)flower);
-			flower.Position = point.position;
-			GetParent().AddChild(flower);
+			SpawnFlowerAtPointIndex(i);
 		}
 	}
 

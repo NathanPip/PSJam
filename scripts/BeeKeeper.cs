@@ -5,7 +5,8 @@ public enum EInventoryItem
 {
 	None,
 	Jar,
-	BeeHive
+	BeeHive,
+	WateringCan
 }
 
 public partial class BeeKeeper : CharacterBody2D
@@ -14,9 +15,6 @@ public partial class BeeKeeper : CharacterBody2D
 	public float Speed = 300.0f;
 	[Export]
 	public float Acceleration = 1200.0f;
-
-	private int MapLimits = 0;
-
 	[Export]
 	public bool walking = false;
 	[Export]
@@ -32,6 +30,8 @@ public partial class BeeKeeper : CharacterBody2D
 	[Export]
 	public int coins = 0;
 	[Export]
+	public float waterAmount = 0.0f;
+	[Export]
 	public float honeyAmount = 0.0f;
 	[Export]
 	public float honeyMax = 100.0f;
@@ -39,6 +39,8 @@ public partial class BeeKeeper : CharacterBody2D
 	public int beeHiveCount = 0;
 	[Export]
 	public BeeHive closeHive = null;
+
+	private int MapLimits = 0;
 
 	[Signal]
 	public delegate void ChangePlayerHoneyWithArgumentEventHandler(float amount, float max);
@@ -106,6 +108,8 @@ public partial class BeeKeeper : CharacterBody2D
 		else if(item == EInventoryItem.Jar){
 			jarSprite.Visible = true;
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 2);
+		}else if(item == EInventoryItem.WateringCan){
+			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 3);
 		}
 		CurrentItem = item;
 	}
@@ -167,6 +171,9 @@ public partial class BeeKeeper : CharacterBody2D
 		} 
 		else if(@event.IsActionPressed("SelectItem2")){
 			ChangeInventoryItem(EInventoryItem.Jar);
+		}
+		else if(@event.IsActionPressed("SelectItem3")){
+			ChangeInventoryItem(EInventoryItem.WateringCan);
 		}
 		else if(@event.IsActionPressed("MoveUp")){
 			facingDirection = EFacingDirection.Up;

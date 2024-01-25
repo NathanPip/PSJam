@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MusicToggleButton : Button
+public partial class MusicToggleButton : TextureButton
 {
 	public void OnMusicToggleButtonPressed() {
 	 	if (AudioServer.IsBusMute(AudioServer.GetBusIndex("Music")))

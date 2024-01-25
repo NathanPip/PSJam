@@ -8,7 +8,7 @@ public partial class Meadow : TileMap
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int MapSize = GetNode<Game>("/root/Game").MapSize;
+		int MapSize = Globals.MapSize;
 		int limit = MapSize / 2;
 		for(int i=-limit; i<limit; i++) {
 			for(int j=-limit; j<limit; j++) {

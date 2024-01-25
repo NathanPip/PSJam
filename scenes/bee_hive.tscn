@@ -1,24 +1,99 @@
-[gd_scene load_steps=5 format=3 uid="uid://ct7p07c2555q7"]
+[gd_scene load_steps=14 format=3 uid="uid://ct7p07c2555q7"]
 
 [ext_resource type="Script" path="res://scripts/BeeHive.cs" id="1_crkyv"]
-[ext_resource type="SpriteFrames" uid="uid://e6652u16ogsp" path="res://beehive_frames.tres" id="2_0jhok"]
+[ext_resource type="Texture2D" uid="uid://dwyt3vvfavwhj" path="res://assets/sprites/Clearbeehive.png" id="2_t7npw"]
 [ext_resource type="Script" path="res://scripts/UI/HoneyDebugGUI.cs" id="3_pjpv4"]
+[ext_resource type="Texture2D" uid="uid://c5s6vdntifhje" path="res://assets/sprites/beehive_top_mask_inner.png" id="4_h18oe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wc1hi"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhp6t"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17r37"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h05ct"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb25l"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_da222"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fukc"]
+atlas = ExtResource("2_t7npw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1q7li"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wc1hi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhp6t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17r37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h05ct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb25l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_da222")
+}],
+"loop": true,
+"name": &"Full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fukc")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_debyv"]
 size = Vector2(42, 6)
 
 [node name="BeeHive" type="Node2D"]
-y_sort_enabled = true
 script = ExtResource("1_crkyv")
-flowerSpreadDistance = 800
-flowerSpawnAmount = 100
-sectorGridSize = 10.0
+flowerSpreadDistance = 400
+startingBees = 6
+flowerSpawnAmount = 20
+sectorGridSize = 5.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="HoneyMeterMask" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(0, -34)
+texture = ExtResource("4_h18oe")
+
+[node name="HoneyMeter" type="ColorRect" parent="HoneyMeterMask"]
+offset_left = -24.0
+offset_top = 10.0
+offset_right = 24.0
+offset_bottom = 31.0
+color = Color(0.992157, 0.980392, 0.254902, 1)
+
+[node name="BeeHiveSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(3, 3)
-sprite_frames = ExtResource("2_0jhok")
-autoplay = "default"
-frame_progress = 0.236301
+sprite_frames = SubResource("SpriteFrames_1q7li")
+animation = &"Idle"
+autoplay = "Idle"
 offset = Vector2(0, -8)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

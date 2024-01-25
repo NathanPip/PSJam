@@ -23,6 +23,7 @@ public partial class BeeHive : Node2D
 		}
 		set {
 			_honey = value;
+			ChangeHoneyRectHeight();
 			EmitSignal(SignalName.AddHoneyWithArgument, _honey);
 		}
 	}
@@ -36,16 +37,31 @@ public partial class BeeHive : Node2D
 	public bool isFull = false;
 	[Export]
 	public float honeyLimit = 100;
+	private int _flowersBloomed = 0;
+	public int flowersBloomed {
+		get {
+			return _flowersBloomed;
+		}
+		set {
+			_flowersBloomed = value;
+			if(_flowersBloomed >= sectorGridSize * sectorGridSize) {
+				allFlowersBloomed = true;
+			}
+		}
+	}
 	public int bees = 0;
 	public int spawnDistanceFromPlayer = 90;
 	public float distanceFromPlauer = 0;
 	public bool spawnedBees = false;
-	public int flowersBloomed = 0;
+	public bool allFlowersBloomed = false;
 	public List<FlowerPoint> flowerPoints = new List<FlowerPoint>();
 	public List<Flower> flowers = new List<Flower>();
 	PackedScene beeScene = ResourceLoader.Load<PackedScene>("res://scenes/bee.tscn");
 	PackedScene flowerScene = ResourceLoader.Load<PackedScene>("res://scenes/flower.tscn");
 	BeeKeeper player = null;
+	ColorRect honeyMeter = null;
+	Vector2 honeyMeterStartingPosition;
+	AnimatedSprite2D beeHiveSprite = null;
 
 	[Signal]
 	public delegate void AddHoneyWithArgumentEventHandler(float honeyAmount);
@@ -63,6 +79,7 @@ public partial class BeeHive : Node2D
 	public void StoreHoney(float honeyAmount) {
 		honey += honeyAmount;
 		if(honey >= honeyLimit){
+			beeHiveSprite.Play("Full");
 			honey = honeyLimit;
 			isFull = true;
 		}
@@ -92,7 +109,6 @@ public partial class BeeHive : Node2D
 		for(int i=-(int)halfGridSize; i<(int)Math.Ceiling(halfGridSize); i++) {
 			for(int j=(int)-halfGridSize; j<(int)Math.Ceiling(halfGridSize); j++) {
 				FlowerPoint flowerPoint = new FlowerPoint();
-				GD.Print(sectorSize * sectorGridSize % 2);
 				Vector2 position = Position + new Vector2(j * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize, 
 						i * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize);
 				flowerPoint.position = position;
@@ -102,8 +118,20 @@ public partial class BeeHive : Node2D
 		}
 	}
 
+	public void SpawnFlowerAtPointIndex(int index) {
+		FlowerPoint flowerPoint = flowerPoints[index];
+        Flower flower = (Flower)flowerScene.Instantiate();
+        flower.hive = this;
+        flowers.Add((Flower)flower);
+        flower.Position = flowerPoint.position;
+        GetParent().AddChild(flower);
+		flowerPoint.spawned = true;
+		flowerPoints[index] = flowerPoint;
+	}
+
 	public void SpawnInitialSprouts() {
-		foreach(FlowerPoint point in flowerPoints) {
+		for(int i=0; i < sectorGridSize * sectorGridSize; i++) {
+			FlowerPoint point = flowerPoints[i];
 			if(point.spawned) {
 				continue;
 			}
@@ -111,11 +139,18 @@ public partial class BeeHive : Node2D
 			if(chance > initialFlowerSproutSpawnChance) {
 				continue;
 			}
+			point.spawned = true;
+			flowerPoints[i] = point;
 			Flower flower = (Flower)flowerScene.Instantiate();
+			flower.hive = this;
 			flowers.Add((Flower)flower);
 			flower.Position = point.position;
 			GetParent().AddChild(flower);
 		}
+	}
+
+	public void ChangeHoneyRectHeight() {
+		honeyMeter.Position = honeyMeterStartingPosition with {Y = honeyMeterStartingPosition.Y - (honeyMeter.Size.Y * (honey / honeyLimit))};
 	}
 
 	public void AddHoney(int amount) {
@@ -125,6 +160,8 @@ public partial class BeeHive : Node2D
 	public void RemoveHoney(float amount) 
 	{
 		honey -= amount;
+		isFull = false;
+		beeHiveSprite.Play("Idle");
 		if(honey < 0) {
 			honey = 0;
 		}
@@ -133,6 +170,9 @@ public partial class BeeHive : Node2D
 	public override void _Ready()
 	{
 		player = GetParent().GetNode<BeeKeeper>("BeeKeeper");
+		honeyMeter = GetNode<ColorRect>("HoneyMeterMask/HoneyMeter");
+		beeHiveSprite = GetNode<AnimatedSprite2D>("BeeHiveSprite");
+		honeyMeterStartingPosition = honeyMeter.Position;
 		distanceFromPlauer = GlobalPosition.DistanceTo(player.GlobalPosition);
 	}
 

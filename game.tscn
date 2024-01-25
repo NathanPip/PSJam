@@ -316,8 +316,10 @@ panning_strength = 0.0
 bus = &"Music"
 
 [node name="ShopArea" parent="." instance=ExtResource("21_iya1w")]
+position = Vector2(-1075, -11)
 
 [node name="Well" parent="." instance=ExtResource("22_urfki")]
+position = Vector2(-865, 165)
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coysd4668wtr"
-path="res://.godot/imported/honey_shop.png-e64b8dc538310c6ceaec55aefb8dd7c2.ctex"
+uid="uid://gj24hq5oo4w1"
+path="res://.godot/imported/honeyjar_icon.png-69fd21cfb525fc9ef8e5f36375ac8f28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/honey_shop.png"
-dest_files=["res://.godot/imported/honey_shop.png-e64b8dc538310c6ceaec55aefb8dd7c2.ctex"]
+source_file="res://assets/sprites/honeyjar_icon.png"
+dest_files=["res://.godot/imported/honeyjar_icon.png-69fd21cfb525fc9ef8e5f36375ac8f28.ctex"]
 
 [params]
 

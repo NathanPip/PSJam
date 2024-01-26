@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfv7b10aishvq"
-path="res://.godot/imported/realBeeKeeper.png-69c36acf28653050cd072c4bde4460bd.ctex"
+uid="uid://gvnvpnr4dro3"
+path="res://.godot/imported/Beehive_Icon.png-453cd6c80db78b60f81d183480530b11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/realBeeKeeper.png"
-dest_files=["res://.godot/imported/realBeeKeeper.png-69c36acf28653050cd072c4bde4460bd.ctex"]
+source_file="res://assets/sprites/Beehive_Icon.png"
+dest_files=["res://.godot/imported/Beehive_Icon.png-453cd6c80db78b60f81d183480530b11.ctex"]
 
 [params]
 

@@ -1,47 +1,48 @@
 [gd_scene load_steps=14 format=3 uid="uid://d2prm1hk0vf5h"]
 
-[ext_resource type="Texture2D" uid="uid://coysd4668wtr" path="res://assets/honey_shop.png" id="2_ld88v"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rx5y"]
 size = Vector2(111, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wypvc"]
 size = Vector2(19, 10)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_emuqe"]
+load_path = "res://.godot/imported/honey_shop.png-36e7c84d347ecf343ea95d3d756d243d.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkolx"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jybso"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jdpoc"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as6ie"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_as11c"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgcjo"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugybr"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0l7v8"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m5n4w"]
-atlas = ExtResource("2_ld88v")
+atlas = SubResource("CompressedTexture2D_emuqe")
 region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8m0g"]

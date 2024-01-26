@@ -247,5 +247,14 @@ public partial class BeeKeeper : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	public void OnJarPurchaseButtonPressed(float price)
+	{
+		if(honeyAmount >= price){
+			honeyAmount -= price;
+			EmitSignal(SignalName.ChangePlayerHoneyWithArgument, honeyAmount, honeyMax);
+			honeyMax += 100.0f;
+		}
+	}
+
 
 }

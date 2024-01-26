@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=30 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -19,9 +19,14 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
+[ext_resource type="Texture2D" uid="uid://gj24hq5oo4w1" path="res://assets/sprites/honeyjar_icon.png" id="20_6hsos"]
+[ext_resource type="Theme" uid="uid://c7exjhkjfxwgq" path="res://ui_theme.tres" id="20_b2g35"]
 [ext_resource type="AudioStream" uid="uid://bsbxpmx0c2d5b" path="res://assets/sounds/Meadow_Jammin.mp3" id="20_srkw3"]
+[ext_resource type="Theme" uid="uid://qy14y8dwk2ye" path="res://background_theme.tres" id="20_t75qo"]
 [ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
+[ext_resource type="Texture2D" uid="uid://c2sutg4k0lr3p" path="res://assets/sprites/full_honeyjar_Icon.png" id="21_wu50s"]
 [ext_resource type="PackedScene" uid="uid://doh0m8u0s8h7h" path="res://scenes/well.tscn" id="22_urfki"]
+[ext_resource type="Texture2D" uid="uid://gvnvpnr4dro3" path="res://assets/sprites/Beehive_Icon.png" id="24_dgnt3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -307,10 +312,228 @@ text = "Quit Game"
 flat = true
 script = ExtResource("18_vcu8s")
 
+[node name="ShopUI" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 481.0
+offset_top = 390.0
+offset_right = 521.0
+offset_bottom = 430.0
+
+[node name="Panel2" type="Panel" parent="HUD/ShopUI"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -140.0
+offset_right = 329.0
+offset_bottom = 182.0
+theme = ExtResource("20_t75qo")
+
+[node name="JarItem" type="Control" parent="HUD/ShopUI"]
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -76.0
+offset_right = 294.0
+offset_bottom = -18.0
+
+[node name="Panel" type="Panel" parent="HUD/ShopUI/JarItem"]
+layout_mode = 1
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 298.0
+offset_bottom = 51.0
+theme = ExtResource("20_b2g35")
+
+[node name="ItemIcon" type="TextureButton" parent="HUD/ShopUI/JarItem"]
+layout_mode = 2
+offset_left = 6.0
+offset_right = 38.0
+offset_bottom = 38.0
+texture_normal = ExtResource("20_6hsos")
+stretch_mode = 3
+
+[node name="ItemLabel" type="Label" parent="HUD/ShopUI/JarItem"]
+layout_mode = 2
+offset_left = 45.0
+offset_top = 9.0
+offset_right = 144.0
+offset_bottom = 32.0
+text = "Honey Jar"
+
+[node name="Control2" type="Control" parent="HUD/ShopUI/JarItem"]
+custom_minimum_size = Vector2(72.71, 0)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 75.0
+offset_right = 147.71
+offset_bottom = 38.0
+
+[node name="PurchaseButton" type="Button" parent="HUD/ShopUI/JarItem"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = 218.0
+offset_right = 278.0
+offset_bottom = 38.0
+theme = ExtResource("20_b2g35")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/JarItem/PurchaseButton"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 36.0
+offset_bottom = 46.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("21_wu50s")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HUD/ShopUI/JarItem/PurchaseButton"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 31.0
+text = "60"
+
+[node name="BeehiveItem" type="Control" parent="HUD/ShopUI"]
+anchors_preset = 0
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 294.0
+offset_bottom = 56.0
+
+[node name="Panel" type="Panel" parent="HUD/ShopUI/BeehiveItem"]
+layout_mode = 1
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 298.0
+offset_bottom = 51.0
+theme = ExtResource("20_b2g35")
+
+[node name="ItemIcon" type="TextureButton" parent="HUD/ShopUI/BeehiveItem"]
+layout_mode = 2
+offset_left = 6.0
+offset_right = 38.0
+offset_bottom = 38.0
+texture_normal = ExtResource("24_dgnt3")
+stretch_mode = 3
+
+[node name="ItemLabel" type="Label" parent="HUD/ShopUI/BeehiveItem"]
+layout_mode = 2
+offset_left = 45.0
+offset_top = 9.0
+offset_right = 144.0
+offset_bottom = 32.0
+text = "Bee Hive"
+
+[node name="Control2" type="Control" parent="HUD/ShopUI/BeehiveItem"]
+custom_minimum_size = Vector2(72.71, 0)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 75.0
+offset_right = 147.71
+offset_bottom = 38.0
+
+[node name="PurchaseButton" type="Button" parent="HUD/ShopUI/BeehiveItem"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = 218.0
+offset_right = 278.0
+offset_bottom = 38.0
+theme = ExtResource("20_b2g35")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/BeehiveItem/PurchaseButton"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 36.0
+offset_bottom = 46.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("21_wu50s")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HUD/ShopUI/BeehiveItem/PurchaseButton"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 31.0
+text = "60"
+
+[node name="JarItem3" type="Control" parent="HUD/ShopUI"]
+anchors_preset = 0
+offset_left = -3.0
+offset_top = 71.0
+offset_right = 294.0
+offset_bottom = 129.0
+
+[node name="Panel" type="Panel" parent="HUD/ShopUI/JarItem3"]
+layout_mode = 1
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 298.0
+offset_bottom = 51.0
+theme = ExtResource("20_b2g35")
+
+[node name="ItemIcon" type="TextureButton" parent="HUD/ShopUI/JarItem3"]
+layout_mode = 2
+offset_left = 6.0
+offset_right = 38.0
+offset_bottom = 38.0
+texture_normal = ExtResource("20_6hsos")
+stretch_mode = 3
+
+[node name="ItemLabel" type="Label" parent="HUD/ShopUI/JarItem3"]
+layout_mode = 2
+offset_left = 45.0
+offset_top = 9.0
+offset_right = 144.0
+offset_bottom = 32.0
+text = "Honey Jar"
+
+[node name="Control2" type="Control" parent="HUD/ShopUI/JarItem3"]
+custom_minimum_size = Vector2(72.71, 0)
+layout_mode = 2
+anchors_preset = 0
+offset_left = 75.0
+offset_right = 147.71
+offset_bottom = 38.0
+
+[node name="PurchaseButton" type="Button" parent="HUD/ShopUI/JarItem3"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_left = 218.0
+offset_right = 278.0
+offset_bottom = 38.0
+theme = ExtResource("20_b2g35")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/JarItem3/PurchaseButton"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 36.0
+offset_bottom = 46.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("21_wu50s")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HUD/ShopUI/JarItem3/PurchaseButton"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 31.0
+text = "60"
+
+[node name="DialogueUI" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2, 0)
 stream = ExtResource("20_srkw3")
-volume_db = 2.0
+volume_db = -3.0
 autoplay = true
 max_distance = 10000.0
 attenuation = 0.000227791

@@ -109,7 +109,6 @@ script = ExtResource("1_ww8nr")
 
 [node name="BeeKeeper" parent="." instance=ExtResource("1_phyg1")]
 position = Vector2(-118, -107)
-Speed = 200.0
 
 [node name="MeadowTileMap" type="TileMap" parent="."]
 z_index = -1

@@ -73,8 +73,8 @@ size = Vector2(42, 6)
 [node name="BeeHive" type="Node2D"]
 script = ExtResource("1_crkyv")
 flowerSpreadDistance = 600
-startingBees = 6
-flowerSpawnAmount = 20
+startingBees = 5
+beeMoveRange = 400
 sectorGridSize = 5.0
 
 [node name="HoneyMeterMask" type="Sprite2D" parent="."]

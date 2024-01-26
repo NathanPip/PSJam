@@ -16,7 +16,7 @@ size = Vector2(30, 28.6667)
 [node name="BeeKeeper" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_qal5l")
-beeHiveCount = 4
+Speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -0.166667)

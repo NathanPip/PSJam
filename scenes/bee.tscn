@@ -15,7 +15,7 @@ color = Color(0.992157, 0.980392, 0.254902, 1)
 [node name="Bee" type="Node2D"]
 z_index = 2
 script = ExtResource("1_8fukp")
-MovementSpeed = 100.0
+MovementSpeed = 60.0
 collectionRate = 2.0
 
 [node name="BeeSprite" type="Sprite2D" parent="."]

@@ -342,7 +342,7 @@ public partial class BeeKeeper : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
-		if(playerSprite.Animation == "watering" && playerSprite.Frame == 3){
+		if(playerSprite.Animation == "watering" && playerSprite.Frame == 4){
 			playerSprite.Play("idle");
 		}
 		if(collectingHoney){
@@ -436,7 +436,7 @@ public partial class BeeKeeper : CharacterBody2D
 		}
 		if(node is Well) {
 			canCollectWater = true;
-			if(CurrentItem == EInventoryItem.WateringCan && waterAmount > 0) {
+			if(CurrentItem == EInventoryItem.WateringCan) {
 				EmitSignal(SignalName.ShowScreenHintWithArgument, "Hold Space to collect water");
 			}
 		}

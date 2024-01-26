@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1lr8vg17yvru"]
+[gd_scene load_steps=5 format=3 uid="uid://b1lr8vg17yvru"]
 
 [ext_resource type="Script" path="res://scripts/Flower.cs" id="1_x2jog"]
 [ext_resource type="Texture2D" uid="uid://dajgkreelsrh8" path="res://assets/sprites/PurpleFlower.png" id="2_r1y8e"]
@@ -12,6 +12,9 @@ gravity = Vector3(0, 0, 0)
 scale_max = 2.5
 color = Color(0.992157, 0.980392, 0.254902, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4cxi"]
+size = Vector2(121, 116)
+
 [node name="Flower" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_x2jog")
@@ -20,7 +23,7 @@ minSproutTime = 0.0
 maxSproutTime = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 texture = ExtResource("2_r1y8e")
 offset = Vector2(0, -8)
 
@@ -32,3 +35,13 @@ process_material = SubResource("ParticleProcessMaterial_p7e8k")
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
+
+[node name="WaterArea" type="Area2D" parent="."]
+position = Vector2(0, -20)
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea"]
+position = Vector2(-4.5, -7)
+shape = SubResource("RectangleShape2D_k4cxi")

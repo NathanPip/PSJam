@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c10sblrpsenwp"]
+[gd_scene load_steps=9 format=3 uid="uid://c10sblrpsenwp"]
 
 [ext_resource type="Script" path="res://scripts/BeeKeeper.cs" id="1_qal5l"]
 [ext_resource type="SpriteFrames" uid="uid://cbvs6s1xj5pfi" path="res://beehive_frames.tres" id="3_4tc00"]
@@ -10,9 +10,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfp6n"]
 size = Vector2(14, 2.33333)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x34tw"]
+size = Vector2(30, 28.6667)
+
 [node name="BeeKeeper" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_qal5l")
+waterAmount = 100.0
+honeyAmount = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -0.166667)
@@ -39,3 +44,15 @@ position = Vector2(11.6667, -6.33333)
 scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("5_8q43x")
 script = ExtResource("6_t3bmc")
+
+[node name="Water and Collection Area" type="Area2D" parent="."]
+position = Vector2(1, -7.33333)
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water and Collection Area"]
+shape = SubResource("RectangleShape2D_x34tw")
+
+[connection signal="area_entered" from="Water and Collection Area" to="." method="OnFlowerAreaEntered"]
+[connection signal="area_exited" from="Water and Collection Area" to="." method="OnFlowerAreaExited"]

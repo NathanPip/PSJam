@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=34 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -13,6 +13,8 @@
 [ext_resource type="SpriteFrames" uid="uid://chtb3tt7oc52i" path="res://jar_frames.tres" id="11_x1emn"]
 [ext_resource type="Script" path="res://scripts/UI/UI_Jar.cs" id="13_512l2"]
 [ext_resource type="Texture2D" uid="uid://bcou6fmkal10w" path="res://assets/sprites/music_icon.png" id="13_fm78w"]
+[ext_resource type="SpriteFrames" uid="uid://coj0tsyppasuu" path="res://wateringcan_frames.tres" id="13_r78mo"]
+[ext_resource type="Script" path="res://scripts/UI/WateringCan_UI.cs" id="14_0fq7a"]
 [ext_resource type="Script" path="res://scripts/UI/MusicToggleButton.cs" id="14_1j7v1"]
 [ext_resource type="Script" path="res://scripts/UI/SoundToggleButton.cs" id="15_qrwu6"]
 [ext_resource type="Texture2D" uid="uid://dnhawb8cg1kuf" path="res://assets/sprites/menu_icon.png" id="15_vmo40"]
@@ -25,8 +27,10 @@
 [ext_resource type="Theme" uid="uid://qy14y8dwk2ye" path="res://background_theme.tres" id="20_t75qo"]
 [ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
 [ext_resource type="Texture2D" uid="uid://c2sutg4k0lr3p" path="res://assets/sprites/full_honeyjar_Icon.png" id="21_wu50s"]
+[ext_resource type="Script" path="res://scripts/UI/ShopUI.cs" id="22_bpw5j"]
 [ext_resource type="PackedScene" uid="uid://doh0m8u0s8h7h" path="res://scenes/well.tscn" id="22_urfki"]
 [ext_resource type="Texture2D" uid="uid://gvnvpnr4dro3" path="res://assets/sprites/Beehive_Icon.png" id="24_dgnt3"]
+[ext_resource type="Texture2D" uid="uid://52mh3phot862" path="res://assets/sprites/bear_portrait.png" id="28_68b0j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -103,7 +107,7 @@ y_sort_enabled = true
 script = ExtResource("1_ww8nr")
 
 [node name="BeeKeeper" parent="." instance=ExtResource("1_phyg1")]
-position = Vector2(-712, 62)
+position = Vector2(-1, 1)
 Speed = 200.0
 beeHiveCount = 3
 
@@ -187,7 +191,7 @@ button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
-Item = 2
+Item = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2"]
 position = Vector2(36.5, 36)
@@ -212,13 +216,13 @@ button_group = ExtResource("5_dejdg")
 icon = ExtResource("5_60nsk")
 flat = true
 script = ExtResource("9_ld68y")
-Item = 2
+Item = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3"]
 position = Vector2(36.5, 36)
 scale = Vector2(3, 3)
-sprite_frames = ExtResource("11_x1emn")
-script = ExtResource("13_512l2")
+sprite_frames = ExtResource("13_r78mo")
+script = ExtResource("14_0fq7a")
 
 [node name="Label" type="Label" parent="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3"]
 layout_mode = 0
@@ -320,6 +324,7 @@ offset_left = 481.0
 offset_top = 390.0
 offset_right = 521.0
 offset_bottom = 430.0
+script = ExtResource("22_bpw5j")
 
 [node name="Panel2" type="Panel" parent="HUD/ShopUI"]
 layout_mode = 0
@@ -360,20 +365,13 @@ offset_right = 144.0
 offset_bottom = 32.0
 text = "Honey Jar"
 
-[node name="Control2" type="Control" parent="HUD/ShopUI/JarItem"]
-custom_minimum_size = Vector2(72.71, 0)
-layout_mode = 2
-anchors_preset = 0
-offset_left = 75.0
-offset_right = 147.71
-offset_bottom = 38.0
-
 [node name="PurchaseButton" type="Button" parent="HUD/ShopUI/JarItem"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 offset_left = 218.0
 offset_right = 278.0
 offset_bottom = 38.0
+focus_mode = 0
 theme = ExtResource("20_b2g35")
 
 [node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/JarItem/PurchaseButton"]
@@ -393,6 +391,14 @@ offset_top = 8.0
 offset_right = 58.0
 offset_bottom = 31.0
 text = "60"
+
+[node name="DisabledPanel" type="Panel" parent="HUD/ShopUI/JarItem"]
+visible = false
+layout_mode = 0
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 297.0
+offset_bottom = 51.0
 
 [node name="BeehiveItem" type="Control" parent="HUD/ShopUI"]
 anchors_preset = 0
@@ -439,6 +445,7 @@ layout_mode = 2
 offset_left = 218.0
 offset_right = 278.0
 offset_bottom = 38.0
+focus_mode = 0
 theme = ExtResource("20_b2g35")
 
 [node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/BeehiveItem/PurchaseButton"]
@@ -459,76 +466,48 @@ offset_right = 58.0
 offset_bottom = 31.0
 text = "60"
 
-[node name="JarItem3" type="Control" parent="HUD/ShopUI"]
-anchors_preset = 0
-offset_left = -3.0
-offset_top = 71.0
-offset_right = 294.0
-offset_bottom = 129.0
-
-[node name="Panel" type="Panel" parent="HUD/ShopUI/JarItem3"]
-layout_mode = 1
+[node name="DisabledPanel" type="Panel" parent="HUD/ShopUI/BeehiveItem"]
+visible = false
 offset_left = -6.0
 offset_top = -8.0
-offset_right = 298.0
+offset_right = 297.0
 offset_bottom = 51.0
-theme = ExtResource("20_b2g35")
-
-[node name="ItemIcon" type="TextureButton" parent="HUD/ShopUI/JarItem3"]
-layout_mode = 2
-offset_left = 6.0
-offset_right = 38.0
-offset_bottom = 38.0
-texture_normal = ExtResource("20_6hsos")
-stretch_mode = 3
-
-[node name="ItemLabel" type="Label" parent="HUD/ShopUI/JarItem3"]
-layout_mode = 2
-offset_left = 45.0
-offset_top = 9.0
-offset_right = 144.0
-offset_bottom = 32.0
-text = "Honey Jar"
-
-[node name="Control2" type="Control" parent="HUD/ShopUI/JarItem3"]
-custom_minimum_size = Vector2(72.71, 0)
-layout_mode = 2
-anchors_preset = 0
-offset_left = 75.0
-offset_right = 147.71
-offset_bottom = 38.0
-
-[node name="PurchaseButton" type="Button" parent="HUD/ShopUI/JarItem3"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-offset_left = 218.0
-offset_right = 278.0
-offset_bottom = 38.0
-theme = ExtResource("20_b2g35")
-
-[node name="TextureRect" type="TextureRect" parent="HUD/ShopUI/JarItem3/PurchaseButton"]
-layout_mode = 2
-offset_left = 4.0
-offset_top = 6.0
-offset_right = 36.0
-offset_bottom = 46.0
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("21_wu50s")
-stretch_mode = 2
-
-[node name="Label" type="Label" parent="HUD/ShopUI/JarItem3/PurchaseButton"]
-layout_mode = 2
-offset_left = 32.0
-offset_top = 8.0
-offset_right = 58.0
-offset_bottom = 31.0
-text = "60"
 
 [node name="DialogueUI" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 273.0
+offset_top = 73.0
+offset_right = 998.0
+offset_bottom = 234.0
+theme = ExtResource("20_b2g35")
+
+[node name="Panel" type="Panel" parent="HUD/DialogueUI"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 725.0
+offset_bottom = 152.0
+theme = ExtResource("20_t75qo")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/DialogueUI"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 17.0
+offset_right = 514.0
+offset_bottom = 98.0
+scale = Vector2(1.5, 1.5)
+text = "Hey, you must be the new beekeeper."
+
+[node name="TextureRect" type="TextureRect" parent="HUD/DialogueUI"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 11.0
+offset_right = 107.0
+offset_bottom = 132.0
+texture = ExtResource("28_68b0j")
+expand_mode = 5
 
 [node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-2, 0)
@@ -541,14 +520,19 @@ panning_strength = 0.0
 bus = &"Music"
 
 [node name="ShopArea" parent="." instance=ExtResource("21_iya1w")]
-position = Vector2(-1075, -11)
+position = Vector2(-220, -207)
 
 [node name="Well" parent="." instance=ExtResource("22_urfki")]
-position = Vector2(-865, 165)
+position = Vector2(186, -150)
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2/AnimatedSprite2D" method="PlayerHoneyAmountChanged"]
 [connection signal="ChangePlayerInventoryWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer" method="OnInventoryChanged"]
+[connection signal="ChangePlayerWaterAmountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3" method="OnWaterAmountChanged"]
+[connection signal="ChangePlayerWaterAmountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3/AnimatedSprite2D" method="PlayerWaterAmountChanged"]
+[connection signal="PlayerInteractedWithShop" from="BeeKeeper" to="ShopArea" method="OnInteractedWithShop"]
 [connection signal="pressed" from="HUD/MenuButtonControl/HBoxContainer/MenuToggle" to="HUD/MenuControl" method="OnMenuButtonPressed"]
 [connection signal="pressed" from="HUD/MenuControl/VBoxContainer/ResumeGameButton" to="HUD/MenuControl" method="OnMenuButtonPressed"]
+[connection signal="pressed" from="HUD/ShopUI/JarItem/PurchaseButton" to="HUD/ShopUI" method="OnJarItemPurchased"]
+[connection signal="pressed" from="HUD/ShopUI/BeehiveItem/PurchaseButton" to="HUD/ShopUI" method="OnBeehiveItemPurchased"]

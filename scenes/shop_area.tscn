@@ -1,4 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2prm1hk0vf5h"]
+[gd_scene load_steps=15 format=3 uid="uid://d2prm1hk0vf5h"]
+
+[ext_resource type="Script" path="res://scripts/Shop.cs" id="1_6edah"]
+[ext_resource type="Texture2D" uid="uid://coysd4668wtr" path="res://assets/sprites/honey_shop.png" id="1_rig66"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rx5y"]
 size = Vector2(111, 44)
@@ -6,101 +9,94 @@ size = Vector2(111, 44)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wypvc"]
 size = Vector2(19, 10)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_emuqe"]
-load_path = "res://.godot/imported/honey_shop.png-36e7c84d347ecf343ea95d3d756d243d.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kkolx"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ax7f"]
+atlas = ExtResource("1_rig66")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jybso"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_los4s"]
+atlas = ExtResource("1_rig66")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jdpoc"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7skr"]
+atlas = ExtResource("1_rig66")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_as6ie"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_44igr"]
+atlas = ExtResource("1_rig66")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_as11c"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_obe4w"]
+atlas = ExtResource("1_rig66")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgcjo"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_jli5t"]
+atlas = ExtResource("1_rig66")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ugybr"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_llmog"]
+atlas = ExtResource("1_rig66")
 region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0l7v8"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vaomm"]
+atlas = ExtResource("1_rig66")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m5n4w"]
-atlas = SubResource("CompressedTexture2D_emuqe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tce5"]
+atlas = ExtResource("1_rig66")
 region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8m0g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kkolx")
+"texture": SubResource("AtlasTexture_3ax7f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jybso")
+"texture": SubResource("AtlasTexture_los4s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jdpoc")
+"texture": SubResource("AtlasTexture_t7skr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_as6ie")
+"texture": SubResource("AtlasTexture_44igr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_as11c")
+"texture": SubResource("AtlasTexture_obe4w")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bgcjo")
+"texture": SubResource("AtlasTexture_jli5t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ugybr")
+"texture": SubResource("AtlasTexture_llmog")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0l7v8")
+"texture": SubResource("AtlasTexture_vaomm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m5n4w")
+"texture": SubResource("AtlasTexture_3tce5")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 6.5
 }]
 
-[node name="ShopArea" type="Node2D"]
-y_sort_enabled = true
-position = Vector2(151, 6)
-
-[node name="Shop" type="Node2D" parent="."]
+[node name="Shop" type="Node2D"]
 position = Vector2(209, 77)
+script = ExtResource("1_6edah")
 
-[node name="CollisionBody" type="StaticBody2D" parent="Shop"]
+[node name="CollisionBody" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shop/CollisionBody"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBody"]
 position = Vector2(-17.5, -12)
 shape = SubResource("RectangleShape2D_0rx5y")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shop/CollisionBody"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CollisionBody"]
 position = Vector2(57, 5)
 shape = SubResource("RectangleShape2D_wypvc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Shop"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -84)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_o8m0g")
 autoplay = "default"
-frame = 8
 frame_progress = 0.533597

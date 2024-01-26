@@ -94,7 +94,7 @@ public class BeeCollectingState : State {
 			return;
 		}
 		flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
-		if(flower.isBloomed || !flower.hasSprouted) {
+		if(flower.isBloomed || !flower.hasSprouted || !flower.watered) {
 			bee.ChangeState(bee.states[0]);
 			return;
 		}

@@ -128,17 +128,12 @@ public partial class BeeHive : Node2D
 	}
 
 	public void SpawnInitialSprouts() {
-		for(int i=0; i < flowerPoints.Count; i++) {
-			FlowerPoint point = flowerPoints[i];
-			if(point.spawned) {
-				continue;
-			}
-			float chance = GD.Randf();
-			if(chance > initialFlowerSproutSpawnChance) {
-				continue;
-			}
-			SpawnFlowerAtPointIndex(i);
-		}
+		int index1 = GD.RandRange(0, (int)flowerPoints.Count/3);;
+		int index2 = GD.RandRange((int)flowerPoints.Count/3 + 1, (int)flowerPoints.Count/3 * 2);
+		int index3 = GD.RandRange((int)flowerPoints.Count/3 * 2 + 1, flowerPoints.Count - 1);
+		SpawnFlowerAtPointIndex(index1);
+		SpawnFlowerAtPointIndex(index2);
+		SpawnFlowerAtPointIndex(index3);
 	}
 
 	public void ChangeHoneyRectHeight() {

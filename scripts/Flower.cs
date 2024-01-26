@@ -22,6 +22,8 @@ public partial class Flower : Node2D
 	public int chancesToSpawnTile = 5;
 	[Export]
 	public int chancesToSpawnTileOnBloom = 10;
+	[Export]
+	public bool watered = false;
 	public float nextBloom;
 	public float sproutTimer = 0;
 	public float sproutTime = 0;
@@ -33,11 +35,8 @@ public partial class Flower : Node2D
 	public GpuParticles2D bloomParticles = null;
 	public PackedScene bloomFlyer = ResourceLoader.Load<PackedScene>("res://scenes/bloom_flyer.tscn");
 
-	Texture2D MedusaFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/Medusaflower.png");
-	Texture2D BlackEyeSusanFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blackeyesusan.png");
-	Texture2D BlueFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png");
-	Texture2D MouthFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png");
-	Texture2D PinkFlower = (Texture2D)ResourceLoader.Load("res://assets/sprites/pink_flower.png");
+	public Texture2D flowerTexture;
+	public Texture2D sproutTexture;
 
 	public List<Texture2D> textures = new List<Texture2D>() {
 	 	(Texture2D)ResourceLoader.Load("res://assets/sprites/Medusaflower.png"),
@@ -45,6 +44,13 @@ public partial class Flower : Node2D
         (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower.png"),
         (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower.png"),
 		(Texture2D)ResourceLoader.Load("res://assets/sprites/pink_flower.png")
+    };
+	public List<Texture2D> sproutTextures = new List<Texture2D>() {
+	 	(Texture2D)ResourceLoader.Load("res://assets/sprites/medusaflower_sprout.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/blackeye_sprout.png"),
+        (Texture2D)ResourceLoader.Load("res://assets/sprites/blueflower_sprout.png"),
+        (Texture2D)ResourceLoader.Load("res://assets/sprites/mouthflower_sprout.png"),
+		(Texture2D)ResourceLoader.Load("res://assets/sprites/pink_flower_sprout.png")
     };
 
 	public void SpawnTiles(int chances) {
@@ -81,6 +87,13 @@ public partial class Flower : Node2D
 		flyer.Destination = hive.flowerPoints[index].position;
 		GetParent().AddChild(flyer);
 	}
+
+	public void WaterFlower() {
+		watered = true;
+		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
+		sprite.Texture = flowerTexture;
+		sprite.Scale = new Vector2(2, 2);
+	}
 	
 	public void Pollinate(double delta) {
 		if(isBloomed) {
@@ -107,7 +120,10 @@ public partial class Flower : Node2D
 		bloomParticles = (GpuParticles2D)GetNode("BloomParticles");
 		nextBloom = spawnTilesPerBloomAmount;
 		Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
-		sprite.Texture = textures[(int)Mathf.Floor(GD.RandRange(0,  textures.Count-1))];
+		int index = (int)Mathf.Floor(GD.RandRange(0,  textures.Count-1));
+		flowerTexture = textures[index];
+		sproutTexture = sproutTextures[index];
+		sprite.Texture = sproutTexture;
 		float scale = bloomAmount / 200 + .5f;
 		Scale = new Vector2(scale, scale);
 		meadow = (Meadow)GetNode("/root/Game/MeadowTileMap");

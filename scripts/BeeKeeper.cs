@@ -30,17 +30,63 @@ public partial class BeeKeeper : CharacterBody2D
 	[Export]
 	public int coins = 0;
 	[Export]
-	public float waterAmount = 0.0f;
+	public float waterMax = 100.0f;
+	float _waterAmount = 0.0f;
 	[Export]
-	public float honeyAmount = 0.0f;
+	public float waterAmount {
+		get {
+			return _waterAmount;
+		} set {
+			_waterAmount = value;
+			if(_waterAmount > waterMax){
+				_waterAmount = waterMax;
+			}
+			if(_waterAmount < 0.0f){
+				_waterAmount = 0.0f;
+			}
+			EmitSignal(SignalName.ChangePlayerWaterAmountWithArgument, _waterAmount, waterMax);
+		}
+	}
+	float _honeyAmount = 0.0f;
+	[Export]
+	public float honeyAmount {
+		get {
+			return _honeyAmount;
+		} set {
+			_honeyAmount = value;
+			if(_honeyAmount > honeyMax){
+				_honeyAmount = honeyMax;
+			}
+			if(_honeyAmount < 0.0f){
+				_honeyAmount = 0.0f;
+			}
+			EmitSignal(SignalName.ChangePlayerHoneyWithArgument, _honeyAmount, honeyMax);
+		}
+	}
 	[Export]
 	public float honeyMax = 100.0f;
+	int _beeHiveCount = 0;
 	[Export]
-	public int beeHiveCount = 0;
+	public int beeHiveCount {
+		get {
+			return _beeHiveCount;
+		} set {
+			_beeHiveCount = value;
+			EmitSignal(SignalName.ChangePlayerBeehiveCountWithArgument, _beeHiveCount);
+		}
+	}
 	[Export]
 	public BeeHive closeHive = null;
 
+	public Flower closeFlower = null;
+
+	public bool canCollectWater = false;
+
+	public bool canInteractWithShop = false;
+
 	private int MapLimits = 0;
+
+	public bool inDialogue = false;
 
 	[Signal]
 	public delegate void ChangePlayerHoneyWithArgumentEventHandler(float amount, float max);
@@ -49,7 +95,9 @@ public partial class BeeKeeper : CharacterBody2D
 	[Signal]
 	public delegate void ChangePlayerBeehiveCountWithArgumentEventHandler(int count);
 	[Signal]
-	public delegate void ChangePlayerCoinsWithArgumentEventHandler(int coins);
+	public delegate void ChangePlayerWaterAmountWithArgumentEventHandler(float water, float max);
+	[Signal]
+	public delegate void PlayerInteractedWithShopEventHandler();
 
 	enum EFacingDirection
 	{
@@ -64,6 +112,32 @@ public partial class BeeKeeper : CharacterBody2D
 	AnimatedSprite2D jarSprite = null;
 	PackedScene beehiveScene = null;
 	AnimatedSprite2D playerSprite = null;
+
+	public void WaterCloseFlower() {
+		GD.Print(waterAmount);
+		if(waterAmount <= 10.0f){
+			waterAmount = 0.0f;
+		} else {
+			waterAmount -= 10.0f;
+		}
+		if(closeFlower == null) {
+			return;
+		}
+		closeFlower.WaterFlower();
+		closeFlower = null;
+	}
+
+	public void CollectWater() {
+		GD.Print(waterAmount);
+		if(waterAmount >= 100.0f){
+			return;
+		}
+		if(waterAmount >= 90.0f){
+			waterAmount = 100.0f;
+		} else {
+			waterAmount += 10.0f;
+		}
+	}
 
 	public void SpawnBeehive() {
 		BeeHive beehive = (BeeHive)beehiveScene.Instantiate();
@@ -81,6 +155,7 @@ public partial class BeeKeeper : CharacterBody2D
 				beehive.Position = Position + new Vector2(beehive.spawnDistanceFromPlayer, 0);
 				break;
 		}
+		Globals.totalBeehivesPlaced++;
 		beehiveSprite.Visible = false;
 		CurrentItem = EInventoryItem.None;
 		beeHiveCount--;
@@ -115,6 +190,7 @@ public partial class BeeKeeper : CharacterBody2D
 	}
 
 	public void AddHoney(float amount){
+		float previousHoneyAmount = honeyAmount;
 		if(closeHive == null) {
 			return;
 		}
@@ -125,6 +201,7 @@ public partial class BeeKeeper : CharacterBody2D
 		}else {
 			honeyAmount += amount;
 		}
+		Globals.totalHoneyCollected += honeyAmount - previousHoneyAmount;
 		closeHive.RemoveHoney(amount);
 		if(honeyAmount > honeyMax){
 			honeyAmount = honeyMax;
@@ -149,11 +226,14 @@ public partial class BeeKeeper : CharacterBody2D
 		{
 			jarSprite.Frame = 0;
 		}
-		EmitSignal(SignalName.ChangePlayerHoneyWithArgument, honeyAmount, honeyMax);
 	}
 
 	public override void _Input(InputEvent @event)
 	{
+        if (inDialogue)
+        {
+            return;
+        }
 		if (@event.IsActionPressed("Interact"))
 		{
 			if(CurrentItem == EInventoryItem.BeeHive){
@@ -164,6 +244,17 @@ public partial class BeeKeeper : CharacterBody2D
 					collectionTimer = collectionCooldown;
 					AddHoney(collectionRate);
 				}
+			}
+			if(CurrentItem == EInventoryItem.WateringCan){
+				if(waterAmount >= 0 && closeFlower != null){
+					WaterCloseFlower();
+				} else if(canCollectWater){
+					CollectWater();
+				}
+			}
+			if(canInteractWithShop) {
+				GD.Print("opened shop");
+				EmitSignal(SignalName.PlayerInteractedWithShop);
 			}
 		}
 		if(@event.IsActionPressed("SelectItem1")){
@@ -247,12 +338,38 @@ public partial class BeeKeeper : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void OnJarPurchaseButtonPressed(float price)
-	{
-		if(honeyAmount >= price){
-			honeyAmount -= price;
-			EmitSignal(SignalName.ChangePlayerHoneyWithArgument, honeyAmount, honeyMax);
-			honeyMax += 100.0f;
+	public void OnFlowerAreaEntered(Area2D area) {
+		Node2D node = area.GetParent<Node2D>();
+		GD.Print("areaEntered");
+		if(node is Flower){
+			GD.Print("isFlower");
+			Flower flower = (Flower)node;
+			if(flower.watered){
+				return;
+			}
+			if(closeFlower == null){
+				closeFlower = flower;
+			} else {
+			 		if(node.Position.DistanceTo(Position) < closeFlower.Position.DistanceTo(Position)){
+					closeFlower = flower;
+				}
+			}
+		}
+		if(node is Well) {
+			canCollectWater = true;
+		}
+	}
+
+	public void OnFlowerAreaExited(Area2D area) {
+		Node2D node = area.GetParent<Node2D>();
+		if(node is Flower){
+			Flower flower = (Flower)node;
+			if(closeFlower == flower){
+				closeFlower = null;
+			}
+		}
+		if(node is Well) {
+			canCollectWater = false;
 		}
 	}
 

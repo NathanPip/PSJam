@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://coj0tsyppasuu"]
+
+[ext_resource type="Texture2D" uid="uid://c3lo82001hkbt" path="res://assets/sprites/watercan.png" id="1_5tpb5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_id7ld"]
+atlas = ExtResource("1_5tpb5")
+region = Rect2(72, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xful"]
+atlas = ExtResource("1_5tpb5")
+region = Rect2(54, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc0o4"]
+atlas = ExtResource("1_5tpb5")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcv1b"]
+atlas = ExtResource("1_5tpb5")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osqav"]
+atlas = ExtResource("1_5tpb5")
+region = Rect2(0, 0, 18, 18)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_id7ld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xful")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc0o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcv1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osqav")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

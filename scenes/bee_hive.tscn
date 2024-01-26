@@ -103,6 +103,7 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_debyv")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 offset_left = -39.0
 offset_top = -77.0
 offset_right = 67.0

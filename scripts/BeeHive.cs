@@ -129,8 +129,8 @@ public partial class BeeHive : Node2D
 
 	public void SpawnInitialSprouts() {
 		int index1 = GD.RandRange(0, (int)flowerPoints.Count/3);;
-		int index2 = GD.RandRange((int)flowerPoints.Count/3 + 1, (int)flowerPoints.Count/3 * 2);
-		int index3 = GD.RandRange((int)flowerPoints.Count/3 * 2 + 1, flowerPoints.Count - 1);
+		int index2 = GD.RandRange((int)flowerPoints.Count/3 + 1, (int)flowerPoints.Count/3 * 2 - 2);
+		int index3 = GD.RandRange((int)flowerPoints.Count/3 * 2 + 1, flowerPoints.Count - 3);
 		SpawnFlowerAtPointIndex(index1);
 		SpawnFlowerAtPointIndex(index2);
 		SpawnFlowerAtPointIndex(index3);

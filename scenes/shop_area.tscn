@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2prm1hk0vf5h"]
+[gd_scene load_steps=21 format=3 uid="uid://d2prm1hk0vf5h"]
 
 [ext_resource type="Script" path="res://scripts/Shop.cs" id="1_6edah"]
 [ext_resource type="Texture2D" uid="uid://coysd4668wtr" path="res://assets/sprites/honey_shop.png" id="1_rig66"]
+[ext_resource type="Texture2D" uid="uid://dif0ba68gmfno" path="res://assets/sprites/talking_sprite.png" id="3_x5r35"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rx5y"]
 size = Vector2(111, 44)
@@ -45,6 +46,26 @@ region = Rect2(448, 0, 64, 64)
 atlas = ExtResource("1_rig66")
 region = Rect2(512, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fj7qr"]
+atlas = ExtResource("3_x5r35")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fw8v5"]
+atlas = ExtResource("3_x5r35")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d86xr"]
+atlas = ExtResource("3_x5r35")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0hfi"]
+atlas = ExtResource("3_x5r35")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_candn"]
+atlas = ExtResource("3_x5r35")
+region = Rect2(256, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8m0g"]
 animations = [{
 "frames": [{
@@ -78,6 +99,26 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 6.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fj7qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fw8v5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d86xr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0hfi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_candn")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
 }]
 
 [node name="Shop" type="Node2D"]
@@ -98,5 +139,5 @@ shape = SubResource("RectangleShape2D_wypvc")
 position = Vector2(1, -84)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_o8m0g")
-autoplay = "default"
-frame_progress = 0.533597
+animation = &"talking"
+autoplay = "talking"

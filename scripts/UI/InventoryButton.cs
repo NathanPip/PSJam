@@ -67,10 +67,10 @@ public partial class InventoryButton : Button
 		if(Item == EInventoryItem.BeeHive) {
 			GetNode<Label>("Label").Text = count.ToString();
 			if(count == 0) {
-				GetNode<AnimatedSprite2D>("AnimatedSprite2D").SelfModulate = new Color("777777FF");
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = new Color("FFFFFFe1");
 			}
 			else {
-				GetNode<AnimatedSprite2D>("AnimatedSprite2D").SelfModulate = new Color("FFFFFFFF");
+				GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = new Color("FFFFFFFF");
 			}
 		}
 	}

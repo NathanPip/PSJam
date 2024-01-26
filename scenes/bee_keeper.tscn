@@ -16,8 +16,7 @@ size = Vector2(30, 28.6667)
 [node name="BeeKeeper" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_qal5l")
-waterAmount = 100.0
-honeyAmount = 100.0
+beeHiveCount = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -0.166667)
@@ -26,7 +25,7 @@ shape = SubResource("RectangleShape2D_yfp6n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
 sprite_frames = ExtResource("4_jbpox")
-animation = &"walking"
+animation = &"collecting_water"
 autoplay = "idle"
 offset = Vector2(0, -9)
 

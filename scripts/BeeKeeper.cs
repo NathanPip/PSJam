@@ -20,10 +20,6 @@ public partial class BeeKeeper : CharacterBody2D
 	[Export]
 	public bool NearBeeHive = false;
 	[Export]
-	public float collectionCooldown = 1.0f;
-	[Export]
-	public float collectionTimer = 0.0f;
-	[Export]
 	public float collectionRate = 10.0f;
 	[Export]
 	public EInventoryItem CurrentItem = EInventoryItem.None;
@@ -84,6 +80,10 @@ public partial class BeeKeeper : CharacterBody2D
 
 	public bool canInteractWithShop = false;
 
+	public bool collectingHoney = false;
+
+	public bool collectingWater = false;
+
 	private int MapLimits = 0;
 
 	public bool inDialogue = false;
@@ -98,6 +98,10 @@ public partial class BeeKeeper : CharacterBody2D
 	public delegate void ChangePlayerWaterAmountWithArgumentEventHandler(float water, float max);
 	[Signal]
 	public delegate void PlayerInteractedWithShopEventHandler();
+	[Signal]
+	public delegate void ShowScreenHintWithArgumentEventHandler(string text);
+	[Signal]
+	public delegate void HideScreenHintEventHandler();
 
 	enum EFacingDirection
 	{
@@ -114,7 +118,9 @@ public partial class BeeKeeper : CharacterBody2D
 	AnimatedSprite2D playerSprite = null;
 
 	public void WaterCloseFlower() {
-		GD.Print(waterAmount);
+		if(waterAmount <= 0.0f){
+			return;
+		}
 		if(waterAmount <= 10.0f){
 			waterAmount = 0.0f;
 		} else {
@@ -127,15 +133,17 @@ public partial class BeeKeeper : CharacterBody2D
 		closeFlower = null;
 	}
 
-	public void CollectWater() {
-		GD.Print(waterAmount);
+	public void CollectWater(float amount) {
 		if(waterAmount >= 100.0f){
 			return;
 		}
-		if(waterAmount >= 90.0f){
+		if(waterAmount + amount >= 100.0f){
 			waterAmount = 100.0f;
 		} else {
-			waterAmount += 10.0f;
+			waterAmount += amount;
+		}
+		if(playerSprite.Animation != "collecting_water") {
+			playerSprite.Play("collecting_water");
 		}
 	}
 
@@ -160,17 +168,25 @@ public partial class BeeKeeper : CharacterBody2D
 		CurrentItem = EInventoryItem.None;
 		beeHiveCount--;
 		EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 0);
+		EmitSignal(SignalName.HideScreenHint);
 		EmitSignal(SignalName.ChangePlayerBeehiveCountWithArgument, beeHiveCount);
 		GetParent().AddChild(beehive);
 	}
 
 	public void ChangeInventoryItem(EInventoryItem item)
 	{
-		jarSprite.Visible = false;
 		beehiveSprite.Visible = false;
+		collectingWater = false;
+		collectingHoney = false;
 		if(CurrentItem == item) {
 			CurrentItem = EInventoryItem.None;
+			if(!walking){
+				playerSprite.Play("idle");
+			} else {
+				playerSprite.Play("walking");
+			}
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 0);
+			EmitSignal(SignalName.HideScreenHint);
 			return;
 		}
 		if(item == EInventoryItem.BeeHive){
@@ -178,28 +194,53 @@ public partial class BeeKeeper : CharacterBody2D
 				return;
 			}
 			beehiveSprite.Visible = true;
+			EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to place beehive");
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 1);
 		}
 		else if(item == EInventoryItem.Jar){
-			jarSprite.Visible = true;
+			if(!walking){
+				playerSprite.Play("idle_with_honey");
+			} else {
+				playerSprite.Play("walking_with_honey");
+			}
+			if(closeHive != null){
+				EmitSignal(SignalName.ShowScreenHintWithArgument, "Hold Space to collect honey");
+			}
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 2);
 		}else if(item == EInventoryItem.WateringCan){
+			if(!walking){
+				playerSprite.Play("idle_with_water");
+			} else {
+				playerSprite.Play("walking_with_water");
+			}
+			if(canCollectWater){
+				EmitSignal(SignalName.ShowScreenHintWithArgument, "Hold Space to collect water");
+			}
+			if(closeFlower != null && waterAmount > 0){
+			   EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to water flower");
+			}
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 3);
 		}
 		CurrentItem = item;
 	}
 
 	public void AddHoney(float amount){
+		if(honeyAmount >= honeyMax){
+			return;
+		}
 		float previousHoneyAmount = honeyAmount;
 		if(closeHive == null) {
 			return;
 		}
 		if(closeHive.honey <= 0.0f){
 			return;
-		}else if(closeHive.honey < collectionRate){
+		}else if(closeHive.honey < amount){
 			honeyAmount += closeHive.honey;
 		}else {
 			honeyAmount += amount;
+		}
+		if(playerSprite.Animation != "collecting_honey"){
+			playerSprite.Play("collecting_honey");
 		}
 		Globals.totalHoneyCollected += honeyAmount - previousHoneyAmount;
 		closeHive.RemoveHoney(amount);
@@ -239,22 +280,32 @@ public partial class BeeKeeper : CharacterBody2D
 			if(CurrentItem == EInventoryItem.BeeHive){
 				SpawnBeehive();
 			}
-			if(CurrentItem == EInventoryItem.Jar){
-				if(collectionTimer <= 0.0f){
-					collectionTimer = collectionCooldown;
-					AddHoney(collectionRate);
-				}
-			}
 			if(CurrentItem == EInventoryItem.WateringCan){
-				if(waterAmount >= 0 && closeFlower != null){
+				if(waterAmount > 0 && closeFlower != null){
+					playerSprite.Play("watering");
 					WaterCloseFlower();
 				} else if(canCollectWater){
-					CollectWater();
+					collectingWater = true;
+				}
+			}
+			if(CurrentItem == EInventoryItem.Jar){
+				if(closeHive != null){
+					collectingHoney = true;
 				}
 			}
 			if(canInteractWithShop) {
 				GD.Print("opened shop");
 				EmitSignal(SignalName.PlayerInteractedWithShop);
+			}
+		}
+		if(@event.IsActionReleased("Interact")){
+			if(CurrentItem == EInventoryItem.Jar){
+				collectingHoney = false;
+				playerSprite.Play("idle_with_honey");
+			}
+			if(CurrentItem == EInventoryItem.WateringCan){
+				collectingWater = false;
+				playerSprite.Play("idle_with_water");
 			}
 		}
 		if(@event.IsActionPressed("SelectItem1")){
@@ -291,8 +342,14 @@ public partial class BeeKeeper : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
-		if(collectionTimer > 0.0f){
-			collectionTimer -= (float)delta;
+		if(playerSprite.Animation == "watering" && playerSprite.Frame == 3){
+			playerSprite.Play("idle");
+		}
+		if(collectingHoney){
+			AddHoney(collectionRate * (float)delta);
+		}
+		if(collectingWater){
+			CollectWater(collectionRate * (float)delta);
 		}
 	}
 
@@ -314,14 +371,34 @@ public partial class BeeKeeper : CharacterBody2D
 			}
 			if(!walking){
 				walking = true;
-				playerSprite.Play("walking");
+				switch(CurrentItem){
+					case EInventoryItem.Jar:
+						playerSprite.Play("walking_with_honey");
+						break;
+					case EInventoryItem.WateringCan:
+						playerSprite.Play("walking_with_water");
+						break;
+					default:
+						playerSprite.Play("walking");
+						break;
+				}
 			}
 		}
 		else
 		{
 			if(walking){
 				walking = false;
-				playerSprite.Play("idle");
+				switch(CurrentItem){
+					case EInventoryItem.Jar:
+						playerSprite.Play("idle_with_honey");
+						break;
+					case EInventoryItem.WateringCan:
+						playerSprite.Play("idle_with_water");
+						break;
+					default:
+						playerSprite.Play("idle");
+						break;
+				}
 			}
 			velocity = velocity.MoveToward(Vector2.Zero, Acceleration * (float)delta);
 		}
@@ -342,7 +419,6 @@ public partial class BeeKeeper : CharacterBody2D
 		Node2D node = area.GetParent<Node2D>();
 		GD.Print("areaEntered");
 		if(node is Flower){
-			GD.Print("isFlower");
 			Flower flower = (Flower)node;
 			if(flower.watered){
 				return;
@@ -354,9 +430,15 @@ public partial class BeeKeeper : CharacterBody2D
 					closeFlower = flower;
 				}
 			}
+			if(CurrentItem == EInventoryItem.WateringCan) {
+				EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to water flower");
+			}
 		}
 		if(node is Well) {
 			canCollectWater = true;
+			if(CurrentItem == EInventoryItem.WateringCan && waterAmount > 0) {
+				EmitSignal(SignalName.ShowScreenHintWithArgument, "Hold Space to collect water");
+			}
 		}
 	}
 
@@ -367,9 +449,15 @@ public partial class BeeKeeper : CharacterBody2D
 			if(closeFlower == flower){
 				closeFlower = null;
 			}
+			if(CurrentItem == EInventoryItem.WateringCan) {
+				EmitSignal(SignalName.HideScreenHint);
+			}
 		}
 		if(node is Well) {
 			canCollectWater = false;
+			if(CurrentItem == EInventoryItem.WateringCan) {
+				EmitSignal(SignalName.HideScreenHint);
+			}
 		}
 	}
 

@@ -19,7 +19,7 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuToggleButton.cs" id="16_72bxh"]
 [ext_resource type="Script" path="res://scripts/UI/MenuControl.cs" id="17_q8mk8"]
 [ext_resource type="Script" path="res://scripts/UI/QuitGameButton.cs" id="18_vcu8s"]
-[ext_resource type="AudioStream" uid="uid://y1dh2d2mjc5u" path="res://assets/sounds/PSJam_Tune_2.mp3" id="20_rxatb"]
+[ext_resource type="AudioStream" uid="uid://bsbxpmx0c2d5b" path="res://assets/sounds/Meadow_Jammin.mp3" id="20_srkw3"]
 [ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
 [ext_resource type="PackedScene" uid="uid://doh0m8u0s8h7h" path="res://scenes/well.tscn" id="22_urfki"]
 
@@ -98,7 +98,7 @@ y_sort_enabled = true
 script = ExtResource("1_ww8nr")
 
 [node name="BeeKeeper" parent="." instance=ExtResource("1_phyg1")]
-position = Vector2(-131, -20)
+position = Vector2(-712, 62)
 Speed = 200.0
 beeHiveCount = 3
 
@@ -116,6 +116,7 @@ grassSpawnChance = 0.002
 flowerSpawnChance = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-711, 64)
 zoom = Vector2(1.5, 1.5)
 process_callback = 0
 position_smoothing_enabled = true
@@ -307,7 +308,8 @@ flat = true
 script = ExtResource("18_vcu8s")
 
 [node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("20_rxatb")
+position = Vector2(-2, 0)
+stream = ExtResource("20_srkw3")
 volume_db = 2.0
 autoplay = true
 max_distance = 10000.0

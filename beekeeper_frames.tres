@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=50 format=3 uid="uid://c1iyodal3xckk"]
+[gd_resource type="SpriteFrames" load_steps=46 format=3 uid="uid://c1iyodal3xckk"]
 
 [ext_resource type="Texture2D" uid="uid://cfv7b10aishvq" path="res://assets/sprites/realBeeKeeper.png" id="1_x8mto"]
 [ext_resource type="Texture2D" uid="uid://blhcg1ssnh63l" path="res://assets/sprites/honey_collecting.png" id="1_xrtye"]
@@ -55,43 +55,27 @@ region = Rect2(180, 0, 18, 18)
 atlas = ExtResource("1_xrtye")
 region = Rect2(198, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_buvbk"]
-atlas = ExtResource("2_u7vqm")
-region = Rect2(0, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bsv1k"]
-atlas = ExtResource("2_u7vqm")
-region = Rect2(18, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tkxar"]
-atlas = ExtResource("2_u7vqm")
-region = Rect2(36, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_luf5v"]
-atlas = ExtResource("2_u7vqm")
-region = Rect2(54, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uwnji"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43d16"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(72, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_abds2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcm6p"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(90, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v3ll8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yblc"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(108, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m7qr0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p54kc"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(126, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_auhvn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8561n"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(144, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmqeu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrnej"]
 atlas = ExtResource("2_u7vqm")
 region = Rect2(162, 0, 18, 18)
 
@@ -224,38 +208,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_buvbk")
+"texture": SubResource("AtlasTexture_43d16")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bsv1k")
+"texture": SubResource("AtlasTexture_vcm6p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tkxar")
+"texture": SubResource("AtlasTexture_6yblc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_luf5v")
+"texture": SubResource("AtlasTexture_p54kc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uwnji")
+"texture": SubResource("AtlasTexture_8561n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_abds2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3ll8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m7qr0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_auhvn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tmqeu")
+"texture": SubResource("AtlasTexture_jrnej")
 }],
 "loop": true,
 "name": &"collecting_water",
-"speed": 10.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,

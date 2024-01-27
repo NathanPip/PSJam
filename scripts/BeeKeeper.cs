@@ -369,20 +369,21 @@ public partial class BeeKeeper : CharacterBody2D
 			{
 				velocity = direction * Speed;
 			}
-			if(!walking){
-				walking = true;
-				switch(CurrentItem){
-					case EInventoryItem.Jar:
-						playerSprite.Play("walking_with_honey");
-						break;
-					case EInventoryItem.WateringCan:
-						playerSprite.Play("walking_with_water");
-						break;
-					default:
-						playerSprite.Play("walking");
-						break;
-				}
-			}
+            walking = true;
+            switch (CurrentItem)
+            {
+                case EInventoryItem.Jar:
+                    playerSprite.Play("walking_with_honey");
+                    break;
+                case EInventoryItem.WateringCan:
+                    playerSprite.Play("walking_with_water");
+                    break;
+                default:
+                    playerSprite.Play("walking");
+                    break;
+            }
+			collectingHoney = false;
+			collectingWater = false;
 		}
 		else
 		{
@@ -458,6 +459,7 @@ public partial class BeeKeeper : CharacterBody2D
 			if(CurrentItem == EInventoryItem.WateringCan) {
 				EmitSignal(SignalName.HideScreenHint);
 			}
+			collectingWater = false;
 		}
 	}
 

@@ -369,19 +369,21 @@ public partial class BeeKeeper : CharacterBody2D
 			{
 				velocity = direction * Speed;
 			}
-            walking = true;
-            switch (CurrentItem)
-            {
-                case EInventoryItem.Jar:
-                    playerSprite.Play("walking_with_honey");
-                    break;
-                case EInventoryItem.WateringCan:
-                    playerSprite.Play("walking_with_water");
-                    break;
-                default:
-                    playerSprite.Play("walking");
-                    break;
-            }
+			if(playerSprite.Animation == "watering" && playerSprite.Frame < 5){
+                walking = true;
+                switch (CurrentItem)
+                {
+                    case EInventoryItem.Jar:
+                        playerSprite.Play("walking_with_honey");
+                        break;
+                    case EInventoryItem.WateringCan:
+                        playerSprite.Play("walking_with_water");
+                        break;
+                    default:
+                        playerSprite.Play("walking");
+                        break;
+                }
+			}
 			collectingHoney = false;
 			collectingWater = false;
 		}

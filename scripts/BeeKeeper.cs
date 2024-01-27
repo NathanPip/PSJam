@@ -88,6 +88,8 @@ public partial class BeeKeeper : CharacterBody2D
 
 	public bool inDialogue = false;
 
+	public bool canMove = true;
+
 	[Signal]
 	public delegate void ChangePlayerHoneyWithArgumentEventHandler(float amount, float max);
 	[Signal]
@@ -304,8 +306,10 @@ public partial class BeeKeeper : CharacterBody2D
 				playerSprite.Play("idle_with_honey");
 			}
 			if(CurrentItem == EInventoryItem.WateringCan){
-				collectingWater = false;
-				playerSprite.Play("idle_with_water");
+				if(canCollectWater){
+					collectingWater = false;
+					playerSprite.Play("idle_with_water");
+				}
 			}
 		}
 		if(@event.IsActionPressed("SelectItem1")){
@@ -351,6 +355,11 @@ public partial class BeeKeeper : CharacterBody2D
 		if(collectingWater){
 			CollectWater(collectionRate * (float)delta);
 		}
+		if(!canMove) {
+			if(playerSprite.Animation != "watering" || playerSprite.Animation == "watering" && playerSprite.Frame == 4){
+				canMove = true;
+			}
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -359,6 +368,9 @@ public partial class BeeKeeper : CharacterBody2D
 		Vector2 direction = Input.GetVector("MoveLeft", "MoveRight", "MoveUp", "MoveDown");
 		if (direction != Vector2.Zero)
 		{
+			if(!canMove){
+				return;
+			}
 			if (direction.X < 0){
 				playerSprite.FlipH = true;
 			} else if (direction.X > 0){
@@ -369,21 +381,19 @@ public partial class BeeKeeper : CharacterBody2D
 			{
 				velocity = direction * Speed;
 			}
-			if(playerSprite.Animation == "watering" && playerSprite.Frame < 5){
-                walking = true;
-                switch (CurrentItem)
-                {
-                    case EInventoryItem.Jar:
-                        playerSprite.Play("walking_with_honey");
-                        break;
-                    case EInventoryItem.WateringCan:
-                        playerSprite.Play("walking_with_water");
-                        break;
-                    default:
-                        playerSprite.Play("walking");
-                        break;
-                }
-			}
+            walking = true;
+            switch (CurrentItem)
+            {
+                case EInventoryItem.Jar:
+                    playerSprite.Play("walking_with_honey");
+                    break;
+                case EInventoryItem.WateringCan:
+                    playerSprite.Play("walking_with_water");
+                    break;
+                default:
+                    playerSprite.Play("walking");
+                    break;
+            }
 			collectingHoney = false;
 			collectingWater = false;
 		}

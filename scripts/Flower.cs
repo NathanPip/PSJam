@@ -79,6 +79,8 @@ public partial class Flower : Node2D
 		SpawnTiles(chancesToSpawnTileOnBloom);
         bloomAmount = 100;
         isBloomed = true;
+		hive.bloomedFlowers.Add(this);
+		hive.flowers.Remove(this);
         int index = GD.RandRange(0, hive.flowerPoints.Count - 1);
 		BloomFlyer flyer = (BloomFlyer)bloomFlyer.Instantiate();
 		flyer.hive = hive;
@@ -93,6 +95,7 @@ public partial class Flower : Node2D
 		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
 		sprite.Texture = flowerTexture;
 		sprite.Scale = new Vector2(2, 2);
+		GetNode<Area2D>("WaterArea").QueueFree();
 	}
 	
 	public void Pollinate(double delta) {

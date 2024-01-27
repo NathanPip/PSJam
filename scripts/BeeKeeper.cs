@@ -220,7 +220,10 @@ public partial class BeeKeeper : CharacterBody2D
 			}
 			if(closeFlower != null && waterAmount > 0){
 			   EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to water flower");
+			} else if(waterAmount <= 0){
+				EmitSignal(SignalName.ShowScreenHintWithArgument, "You need more water");
 			}
+
 			EmitSignal(SignalName.ChangePlayerInventoryWithArgument, 3);
 		}
 		CurrentItem = item;
@@ -444,7 +447,11 @@ public partial class BeeKeeper : CharacterBody2D
 				}
 			}
 			if(CurrentItem == EInventoryItem.WateringCan) {
-				EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to water flower");
+				if(waterAmount > 0){
+					EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to water flower");
+				} else {
+					EmitSignal(SignalName.ShowScreenHintWithArgument, "You need more water");
+				}
 			}
 		}
 		if(node is Well) {

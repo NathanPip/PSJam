@@ -1,11 +1,11 @@
 [gd_resource type="SpriteFrames" load_steps=46 format=3 uid="uid://c1iyodal3xckk"]
 
-[ext_resource type="Texture2D" uid="uid://cfv7b10aishvq" path="res://assets/sprites/realBeeKeeper.png" id="1_x8mto"]
+[ext_resource type="Texture2D" uid="uid://b8r4r0y1lu5ti" path="res://assets/sprites/realBeeKeeper.png" id="1_x8mto"]
 [ext_resource type="Texture2D" uid="uid://blhcg1ssnh63l" path="res://assets/sprites/honey_collecting.png" id="1_xrtye"]
 [ext_resource type="Texture2D" uid="uid://b71cbmnlgb5qg" path="res://assets/sprites/water_action.png" id="2_1iqsu"]
 [ext_resource type="Texture2D" uid="uid://ekbmwcmbqv8x" path="res://assets/sprites/walking_honey.png" id="2_qnwxm"]
 [ext_resource type="Texture2D" uid="uid://bt8mqlg6yvfuu" path="res://assets/sprites/watercan_collecting.png" id="2_u7vqm"]
-[ext_resource type="Texture2D" uid="uid://bjr4666ior115" path="res://assets/sprites/walking_watercan.png" id="3_p180w"]
+[ext_resource type="Texture2D" uid="uid://dwom3ipb4y5q7" path="res://assets/sprites/walking_watercan.png" id="3_p180w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcloq"]
 atlas = ExtResource("1_xrtye")

@@ -93,7 +93,11 @@ public class BeeCollectingState : State {
 			bee.ChangeState(bee.states[0]);
 			return;
 		}
-		flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
+		if(!bee.hive.allFlowersBloomed) {
+			flower = bee.hive.flowers[GD.RandRange(0, bee.hive.flowers.Count - 1)]; 
+		} else {
+			flower = bee.hive.bloomedFlowers[GD.RandRange(0, bee.hive.bloomedFlowers.Count - 1)];
+		}
 		if(flower.isBloomed || !flower.hasSprouted || !flower.watered && !bee.hive.allFlowersBloomed) {
 			bee.ChangeState(bee.states[0]);
 			return;

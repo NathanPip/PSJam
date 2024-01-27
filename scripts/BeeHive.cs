@@ -56,6 +56,7 @@ public partial class BeeHive : Node2D
 	public bool allFlowersBloomed = false;
 	public List<FlowerPoint> flowerPoints = new List<FlowerPoint>();
 	public List<Flower> flowers = new List<Flower>();
+	public List<Flower> bloomedFlowers = new List<Flower>();
 	PackedScene beeScene = ResourceLoader.Load<PackedScene>("res://scenes/bee.tscn");
 	PackedScene flowerScene = ResourceLoader.Load<PackedScene>("res://scenes/flower.tscn");
 	BeeKeeper player = null;

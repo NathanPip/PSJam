@@ -9,10 +9,10 @@ public partial class Camera : Camera2D
 	{
 		target = GetNode<Node2D>("/root/Game/BeeKeeper"); 
 		int limits = Globals.MapSize / 2;
-		LimitLeft = (int)-limits;
-		LimitRight = (int)limits;
-		LimitTop = (int)-limits;
-		LimitBottom = (int)limits;
+		LimitLeft = (int)-limits*2;
+		LimitRight = (int)limits*2;
+		LimitTop = (int)-limits*2;
+		LimitBottom = (int)limits*2;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

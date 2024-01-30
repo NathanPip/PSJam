@@ -88,8 +88,7 @@ public class BeeCollectingState : State {
 	}
 
 	public override void Enter() {
-		int flowerCount = bee.hive.flowers.Count;
-		if(flowerCount == 0){
+		if(bee.hive.flowers.Count == 0 && bee.hive.bloomedFlowers.Count == 0) {
 			bee.ChangeState(bee.states[0]);
 			return;
 		}
@@ -98,7 +97,7 @@ public class BeeCollectingState : State {
 		} else {
 			flower = bee.hive.bloomedFlowers[GD.RandRange(0, bee.hive.bloomedFlowers.Count - 1)];
 		}
-		if(flower.isBloomed || !flower.hasSprouted || !flower.watered && !bee.hive.allFlowersBloomed) {
+		if(!flower.hasSprouted || !flower.watered) {
 			bee.ChangeState(bee.states[0]);
 			return;
 		}

@@ -75,12 +75,13 @@ public partial class Flower : Node2D
 	}
 
 	public void BloomFlower() {
-        // bloomParticles.Emitting = true;
 		SpawnTiles(chancesToSpawnTileOnBloom);
         bloomAmount = 100;
         isBloomed = true;
-		hive.bloomedFlowers.Add(this);
-		hive.flowers.Remove(this);
+		hive.BloomFlower(this);
+		if(hive.allFlowersBloomed || hive.flowerPoints.Count == 0) {
+			return;
+		}
         int index = GD.RandRange(0, hive.flowerPoints.Count - 1);
 		BloomFlyer flyer = (BloomFlyer)bloomFlyer.Instantiate();
 		flyer.hive = hive;

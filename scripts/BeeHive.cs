@@ -28,7 +28,7 @@ public partial class BeeHive : Node2D
 		}
 	}
 	[Export]
-	public int flowerSpawnAmount = 40;
+	public int flowerSpawnAmount = 4;
 	[Export]
 	public float initialFlowerSproutSpawnChance = .1f;
 	[Export]
@@ -44,11 +44,13 @@ public partial class BeeHive : Node2D
 		}
 		set {
 			_flowersBloomed = value;
-			if(_flowersBloomed >= sectorGridSize * sectorGridSize) {
+			if(_flowersBloomed >= flowerPointCount) {
 				allFlowersBloomed = true;
 			}
 		}
 	}
+	[Export]
+	public int flowerPointCount = 0;
 	public int bees = 0;
 	public int spawnDistanceFromPlayer = 90;
 	public float distanceFromPlauer = 0;
@@ -86,6 +88,14 @@ public partial class BeeHive : Node2D
 		}
 	}
 
+	public void BloomFlower(Flower flower) {
+		bloomedFlowers.Add(flower);	
+		flowers.Remove(flower);
+		if(flowers.Count == 0) {
+			allFlowersBloomed = true;
+		}
+	}
+
 	public void AddFlower(Vector2 position) {
 		Flower flower = (Flower)flowerScene.Instantiate();
 		flowers.Add((Flower)flower);
@@ -97,16 +107,28 @@ public partial class BeeHive : Node2D
 		float sectorSize = flowerSpreadDistance / sectorGridSize;
 		float halfSectorSize = sectorSize / 2;
 		float halfGridSize = (float)sectorGridSize / 2;
+		float halfMapSize = Globals.MapSize / 2;
 		for(int i=-(int)halfGridSize; i<(int)Math.Ceiling(halfGridSize); i++) {
+			float YSectorPosition = Position.Y + i * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0);
+			float AbsYSectorPosition = Mathf.Abs(YSectorPosition);
 			for(int j=(int)-halfGridSize; j<(int)Math.Ceiling(halfGridSize); j++) {
 				FlowerPoint flowerPoint = new FlowerPoint();
-				Vector2 position = Position + new Vector2(j * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize, 
-						i * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0) + GD.Randf() * sectorSize - halfSectorSize);
+				float XSectorPosition = Position.X + j * sectorSize + halfSectorSize * (sectorGridSize % 2 == 0 ? 1 : 0);
+				float AbsXSectorPosition = Mathf.Abs(XSectorPosition);
+                if (AbsXSectorPosition > halfMapSize ||
+                        AbsYSectorPosition > halfMapSize ||
+                        AbsXSectorPosition + sectorSize > halfMapSize ||
+                        AbsYSectorPosition + sectorSize > halfMapSize) {
+					continue;
+				}
+				Vector2 position = new Vector2(XSectorPosition + GD.Randf() * sectorSize, 
+						YSectorPosition + GD.Randf() * sectorSize);
 				flowerPoint.position = position;
 				flowerPoint.spawned = false;
 				flowerPoints.Add(flowerPoint);
 			}
 		}
+		flowerPointCount = flowerPoints.Count;
 	}
 
 	public void SpawnFlowerAtPoint(FlowerPoint point) {
@@ -122,6 +144,7 @@ public partial class BeeHive : Node2D
         flower.hive = this;
         flowers.Add((Flower)flower);
         flower.Position = flowerPoint.position;
+		GD.Print(flower.Position);
         GetParent().AddChild(flower);
 		flowerPoint.spawned = true;
 		flowerPoints[index] = flowerPoint;
@@ -129,12 +152,11 @@ public partial class BeeHive : Node2D
 	}
 
 	public void SpawnInitialSprouts() {
-		int index1 = GD.RandRange(0, (int)flowerPoints.Count/3);;
-		int index2 = GD.RandRange((int)flowerPoints.Count/3 + 1, (int)flowerPoints.Count/3 * 2 - 2);
-		int index3 = GD.RandRange((int)flowerPoints.Count/3 * 2 + 1, flowerPoints.Count - 3);
-		SpawnFlowerAtPointIndex(index1);
-		SpawnFlowerAtPointIndex(index2);
-		SpawnFlowerAtPointIndex(index3);
+		int count = flowerPoints.Count;
+		for(int i=0; i<flowerSpawnAmount; i++) {
+			SpawnFlowerAtPointIndex((int)GD.RandRange(0, count-1));
+			count--;
+		}
 	}
 
 	public void ChangeHoneyRectHeight() {

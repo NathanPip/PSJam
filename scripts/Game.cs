@@ -19,4 +19,11 @@ public partial class Game : Node2D
 	public override void _Process(double delta)
 	{
 	}
+
+	public override void _Draw() {
+		DrawLine(new Vector2(-Globals.MapSize/2, -Globals.MapSize/2), new Vector2(Globals.MapSize/2, -Globals.MapSize/2), Colors.White);
+		DrawLine(new Vector2(-Globals.MapSize/2, -Globals.MapSize/2), new Vector2(-Globals.MapSize/2, Globals.MapSize/2), Colors.White);
+		DrawLine(new Vector2(Globals.MapSize/2, Globals.MapSize/2), new Vector2(Globals.MapSize/2, -Globals.MapSize/2), Colors.White);
+		DrawLine(new Vector2(Globals.MapSize/2, Globals.MapSize/2), new Vector2(-Globals.MapSize/2, Globals.MapSize/2), Colors.White);
+	}
 }

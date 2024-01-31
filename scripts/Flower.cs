@@ -96,7 +96,7 @@ public partial class Flower : Node2D
 		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
 		sprite.Texture = flowerTexture;
 		sprite.Scale = new Vector2(2, 2);
-		GetNode<Area2D>("WaterArea").QueueFree();
+		GetNode<Area2D>("WaterArea").Visible = false;
 	}
 	
 	public void Pollinate(double delta) {

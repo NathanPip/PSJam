@@ -165,6 +165,18 @@ public partial class BeeKeeper : CharacterBody2D
 				beehive.Position = Position + new Vector2(beehive.spawnDistanceFromPlayer, 0);
 				break;
 		}
+		if(beehive.Position.X < -MapLimits){
+			beehive.Position += new Vector2(-MapLimits-beehive.Position.X, 0);
+		}
+		if(beehive.Position.Y < -MapLimits){
+			beehive.Position += new Vector2(0, -MapLimits-beehive.Position.Y);
+		}
+		if(beehive.Position.X > MapLimits){
+			beehive.Position += new Vector2(MapLimits-beehive.Position.X, 0);
+		}
+		if(beehive.Position.Y > MapLimits){
+			beehive.Position += new Vector2(0, MapLimits-beehive.Position.Y);
+		}
 		Globals.totalBeehivesPlaced++;
 		beehiveSprite.Visible = false;
 		CurrentItem = EInventoryItem.None;

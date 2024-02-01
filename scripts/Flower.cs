@@ -24,6 +24,7 @@ public partial class Flower : Node2D
 	public int chancesToSpawnTileOnBloom = 10;
 	[Export]
 	public bool watered = false;
+	public float waterAmount = 0;
 	public float nextBloom;
 	public float sproutTimer = 0;
 	public float sproutTime = 0;
@@ -91,12 +92,22 @@ public partial class Flower : Node2D
 		GetParent().AddChild(flyer);
 	}
 
+	public void AddWater(float amount) {
+		if(watered) {
+			return;
+		}
+		if(waterAmount >= 10) {
+			WaterFlower();
+		}
+		waterAmount += amount;
+	}
+
 	public void WaterFlower() {
 		watered = true;
 		Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
 		sprite.Texture = flowerTexture;
 		sprite.Scale = new Vector2(2, 2);
-		GetNode<Area2D>("WaterArea").Visible = false;
+		GetNode<Area2D>("WaterArea").Monitorable = false;
 	}
 	
 	public void Pollinate(double delta) {

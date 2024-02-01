@@ -189,18 +189,6 @@ public partial class BeeHive : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		distanceFromPlauer = GlobalPosition.DistanceTo(player.GlobalPosition);
-		if(distanceFromPlauer < 50) {
-			if(player.closeHive == null) {
-				player.closeHive = this;
-			} else if (player.closeHive.distanceFromPlauer > distanceFromPlauer) {
-				player.closeHive = this;
-			}
-		} else {
-			if(player.closeHive == this){
-				player.closeHive = null;
-			}
-		}
 		if(!spawnedBees){
 			SpawnBees();
 			SpawnFlowerPoint();

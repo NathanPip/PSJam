@@ -203,7 +203,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_yjgar")
 }],
 "loop": true,
-"name": &"collecting_honey",
+"name": &"CollectingJar",
 "speed": 10.0
 }, {
 "frames": [{
@@ -226,7 +226,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_jrnej")
 }],
 "loop": true,
-"name": &"collecting_water",
+"name": &"CollectingWateringCan",
 "speed": 6.0
 }, {
 "frames": [{
@@ -234,7 +234,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_v6xau")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -242,7 +242,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_wyvdu")
 }],
 "loop": true,
-"name": &"idle_with_honey",
+"name": &"IdleJar",
 "speed": 5.0
 }, {
 "frames": [{
@@ -250,7 +250,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_cum77")
 }],
 "loop": true,
-"name": &"idle_with_water",
+"name": &"IdleWateringCan",
 "speed": 5.0
 }, {
 "frames": [{
@@ -267,7 +267,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_a2b4q")
 }],
 "loop": true,
-"name": &"walking",
+"name": &"Walking",
 "speed": 5.0
 }, {
 "frames": [{
@@ -287,7 +287,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_q8mf0")
 }],
 "loop": true,
-"name": &"walking_with_honey",
+"name": &"WalkingJar",
 "speed": 5.0
 }, {
 "frames": [{
@@ -304,7 +304,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ffaii")
 }],
 "loop": true,
-"name": &"walking_with_water",
+"name": &"WalkingWateringCan",
 "speed": 5.0
 }, {
 "frames": [{
@@ -323,7 +323,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s4xhw")
 }],
-"loop": false,
-"name": &"watering",
+"loop": true,
+"name": &"WateringWateringCan",
 "speed": 5.0
 }]

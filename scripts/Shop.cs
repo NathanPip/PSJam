@@ -148,17 +148,11 @@ public partial class Shop : Node2D
 		if(distanceToPlayer <= interactionDistance && canInteract == false) {
 			canInteract = true;
 			player.canInteractWithShop = true;
-			if(currentDialogue != null) {
-				EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to talk");
-			} else {
-				EmitSignal(SignalName.ShowScreenHintWithArgument, "Press Space to open shop");
-			}
 		} else if(canInteract == true && distanceToPlayer > interactionDistance){
 			canInteract = false;
 			shopUI.CloseShop();
 			player.canInteractWithShop = false;
 			shopOpen = false;
-			EmitSignal(SignalName.HideScreenHint);
 		}
 		if(!firstDialogue && Globals.totalHoneyCollected > 1) {
 			firstDialogue = true;

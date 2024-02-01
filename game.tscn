@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=36 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://gvnvpnr4dro3" path="res://assets/sprites/Beehive_Icon.png" id="24_dgnt3"]
 [ext_resource type="Texture2D" uid="uid://52mh3phot862" path="res://assets/sprites/bear_portrait.png" id="28_68b0j"]
 [ext_resource type="Script" path="res://scripts/UI/HintUI.cs" id="29_fq8k1"]
+[ext_resource type="Texture2D" uid="uid://chitchwi06gg8" path="res://assets/sprites/tree.png" id="33_a5lr3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -121,7 +122,7 @@ layer_1/name = "Flowers"
 layer_1/navigation_enabled = false
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_yewd1")
-grassSpawnChance = 0.002
+grassSpawnChance = 0.02
 flowerSpawnChance = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -558,6 +559,10 @@ position = Vector2(-220, -207)
 
 [node name="Well" parent="." instance=ExtResource("22_urfki")]
 position = Vector2(20, -210)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(245, -310)
+texture = ExtResource("33_a5lr3")
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]

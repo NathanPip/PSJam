@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://da6c3awtgtiom"]
+[gd_scene load_steps=39 format=3 uid="uid://da6c3awtgtiom"]
 
 [ext_resource type="PackedScene" uid="uid://c10sblrpsenwp" path="res://scenes/bee_keeper.tscn" id="1_phyg1"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_ww8nr"]
@@ -25,14 +25,17 @@
 [ext_resource type="Theme" uid="uid://c7exjhkjfxwgq" path="res://ui_theme.tres" id="20_b2g35"]
 [ext_resource type="AudioStream" uid="uid://bsbxpmx0c2d5b" path="res://assets/sounds/Meadow_Jammin.mp3" id="20_srkw3"]
 [ext_resource type="Theme" uid="uid://qy14y8dwk2ye" path="res://background_theme.tres" id="20_t75qo"]
-[ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="21_iya1w"]
 [ext_resource type="Texture2D" uid="uid://c2sutg4k0lr3p" path="res://assets/sprites/full_honeyjar_Icon.png" id="21_wu50s"]
 [ext_resource type="Script" path="res://scripts/UI/ShopUI.cs" id="22_bpw5j"]
 [ext_resource type="PackedScene" uid="uid://doh0m8u0s8h7h" path="res://scenes/well.tscn" id="22_urfki"]
 [ext_resource type="Texture2D" uid="uid://gvnvpnr4dro3" path="res://assets/sprites/Beehive_Icon.png" id="24_dgnt3"]
 [ext_resource type="Texture2D" uid="uid://52mh3phot862" path="res://assets/sprites/bear_portrait.png" id="28_68b0j"]
 [ext_resource type="Script" path="res://scripts/UI/HintUI.cs" id="29_fq8k1"]
-[ext_resource type="Texture2D" uid="uid://chitchwi06gg8" path="res://assets/sprites/tree.png" id="33_a5lr3"]
+[ext_resource type="PackedScene" uid="uid://d2prm1hk0vf5h" path="res://scenes/shop_area.tscn" id="32_l1lan"]
+[ext_resource type="PackedScene" uid="uid://b3t0r7qu5l8to" path="res://scenes/rock.tscn" id="33_2vk1j"]
+[ext_resource type="Texture2D" uid="uid://ck2wqvffds4wx" path="res://assets/sprites/rock_0.png" id="33_al1p6"]
+[ext_resource type="Texture2D" uid="uid://blgicb534emn" path="res://assets/sprites/rock_1.png" id="34_cs6vp"]
+[ext_resource type="Texture2D" uid="uid://cj5uvjxtd3x1u" path="res://assets/sprites/rock_2.png" id="35_k6m57"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk5ga"]
 texture = ExtResource("2_1d36p")
@@ -554,15 +557,39 @@ attenuation = 0.000227791
 panning_strength = 0.0
 bus = &"Music"
 
-[node name="ShopArea" parent="." instance=ExtResource("21_iya1w")]
-position = Vector2(-220, -207)
-
 [node name="Well" parent="." instance=ExtResource("22_urfki")]
-position = Vector2(20, -210)
+position = Vector2(170, -254)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(245, -310)
-texture = ExtResource("33_a5lr3")
+[node name="Shop" parent="." instance=ExtResource("32_l1lan")]
+position = Vector2(-308, -341)
+
+[node name="Rock0" parent="." instance=ExtResource("33_2vk1j")]
+position = Vector2(-327, 22)
+
+[node name="Rock4" type="Sprite2D" parent="."]
+position = Vector2(-1028, -86)
+scale = Vector2(2, 2)
+texture = ExtResource("33_al1p6")
+
+[node name="Rock1" type="Sprite2D" parent="."]
+position = Vector2(-786, -253)
+scale = Vector2(2, 2)
+texture = ExtResource("34_cs6vp")
+
+[node name="Rock5" type="Sprite2D" parent="."]
+position = Vector2(-682, 22)
+scale = Vector2(2, 2)
+texture = ExtResource("34_cs6vp")
+
+[node name="Rock2" type="Sprite2D" parent="."]
+position = Vector2(-736, -172)
+scale = Vector2(2, 2)
+texture = ExtResource("35_k6m57")
+
+[node name="Rock3" type="Sprite2D" parent="."]
+position = Vector2(-540, -116)
+scale = Vector2(2, 2)
+texture = ExtResource("35_k6m57")
 
 [connection signal="ChangePlayerBeehiveCountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item1" method="OnBeehiveCountChanged"]
 [connection signal="ChangePlayerHoneyWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item2" method="OnHoneyAmountChanged"]
@@ -571,13 +598,9 @@ texture = ExtResource("33_a5lr3")
 [connection signal="ChangePlayerWaterAmountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3" method="OnWaterAmountChanged"]
 [connection signal="ChangePlayerWaterAmountWithArgument" from="BeeKeeper" to="HUD/InventoryControl/CenterContainer/HBoxContainer/Item3/AnimatedSprite2D" method="PlayerWaterAmountChanged"]
 [connection signal="HideScreenHint" from="BeeKeeper" to="HUD/HintUI" method="HideScreenHint"]
-[connection signal="PlayerInteractedWithShop" from="BeeKeeper" to="ShopArea" method="OnInteractedWithShop"]
 [connection signal="ShowScreenHintWithArgument" from="BeeKeeper" to="HUD/HintUI" method="ShowScreenHint"]
 [connection signal="pressed" from="HUD/MenuButtonControl/HBoxContainer/MenuToggle" to="HUD/MenuControl" method="OnMenuButtonPressed"]
 [connection signal="pressed" from="HUD/MenuControl/VBoxContainer/ResumeGameButton" to="HUD/MenuControl" method="OnMenuButtonPressed"]
 [connection signal="pressed" from="HUD/ShopUI/BeehiveItem/PurchaseButton" to="HUD/ShopUI" method="OnBeehiveItemPurchased"]
 [connection signal="pressed" from="HUD/ShopUI/JarItem/PurchaseButton" to="HUD/ShopUI" method="OnJarItemPurchased"]
 [connection signal="pressed" from="HUD/ShopUI/Button" to="HUD/ShopUI" method="CloseShop"]
-[connection signal="pressed" from="HUD/ShopUI/Button" to="ShopArea" method="OnShopClose"]
-[connection signal="HideScreenHint" from="ShopArea" to="HUD/HintUI" method="HideScreenHint"]
-[connection signal="ShowScreenHintWithArgument" from="ShopArea" to="HUD/HintUI" method="ShowScreenHint"]

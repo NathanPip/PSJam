@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfsbvb5svl28q"
-path="res://.godot/imported/medusaflower_sprout.png-24abb28e6277f9d9a046f201ef9b2675.ctex"
+uid="uid://rvmkv7xhyj6s"
+path="res://.godot/imported/shop_log_side_0.png-86ab741209f209cf9c0ea79f4f82faf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/medusaflower_sprout.png"
-dest_files=["res://.godot/imported/medusaflower_sprout.png-24abb28e6277f9d9a046f201ef9b2675.ctex"]
+source_file="res://assets/sprites/shop_log_side_0.png"
+dest_files=["res://.godot/imported/shop_log_side_0.png-86ab741209f209cf9c0ea79f4f82faf7.ctex"]
 
 [params]
 

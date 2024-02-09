@@ -15,6 +15,21 @@ public partial class Camera : Camera2D
 		LimitBottom = (int)limits*2;
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		if(@event is InputEventMouseButton mouseButton)
+		{
+			if(mouseButton.ButtonIndex == MouseButton.WheelUp)
+			{
+				Zoom = new Vector2(Zoom.X + 0.1f, Zoom.Y + 0.1f);
+			}
+			else if(mouseButton.ButtonIndex == MouseButton.WheelDown)
+			{
+				Zoom = new Vector2(Zoom.X - 0.1f, Zoom.Y - 0.1f);
+			}
+		}
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
